@@ -1,0 +1,264 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/main.gd" type="Script" id=1]
+[ext_resource path="res://data/fonts/main-titles.tres" type="DynamicFont" id=2]
+[ext_resource path="res://data/fonts/descriptions.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/components/sidebar-output.tscn" type="PackedScene" id=4]
+[ext_resource path="res://data/fonts/button-text.tres" type="DynamicFont" id=5]
+[ext_resource path="res://data/fonts/list-titles.tres" type="DynamicFont" id=6]
+[ext_resource path="res://data/themes/button-theme.tres" type="Theme" id=7]
+[ext_resource path="res://data/images/inverted-logo.png" type="Texture" id=8]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[node name="Main" type="Panel"]
+margin_right = 1280.0
+margin_bottom = 720.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Frame" type="HBoxContainer" parent="."]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 1255.0
+margin_bottom = 695.0
+rect_min_size = Vector2( 1230, 670 )
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Main" type="VBoxContainer" parent="Frame"]
+margin_right = 905.0
+margin_bottom = 670.0
+rect_min_size = Vector2( 905, 670 )
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Topbar" type="HBoxContainer" parent="Frame/Main"]
+margin_right = 905.0
+margin_bottom = 48.0
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Logo" type="TextureRect" parent="Frame/Main/Topbar"]
+margin_right = 48.0
+margin_bottom = 48.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 8 )
+stretch_mode = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="Label" parent="Frame/Main/Topbar"]
+margin_left = 73.0
+margin_right = 905.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 533, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 2 )
+text = "GodotSteam Example Project"
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Message" type="Label" parent="Frame/Main"]
+margin_top = 73.0
+margin_right = 905.0
+margin_bottom = 385.0
+custom_fonts/font = ExtResource( 3 )
+text = "Hey there! Welcome to the GodotSteam Example project. This was designed to show you various parts of Steamworks in a hands-on manner.
+
+Each example .tscn file can be opened up in the editor so you can see all the working parts and tinker with them.  The code in the accompanying .gd files can be copy / pasted into your project with the appropriate modifications.
+
+However, I strongly encourage you to understand exactly how the code is working before copying it over.  You may also have a complete different method of writing GDScript than I do and you should probably re-write what you need to in whatever method you are comfortable with.
+
+Feel free to submit pull requests to this project's repo if you notice something wonky or think you can improve the overall experience.  You may also submit requests for additional examples in the main GodotSteam repo, in the Issues section.  And, as always, if you get stuck or something isn't clear, please reach out on either Github or Discord.
+
+More tutorial examples are coming soon-ish!"
+autowrap = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Sidebar" type="VBoxContainer" parent="Frame"]
+margin_left = 930.0
+margin_right = 1230.0
+margin_bottom = 670.0
+rect_min_size = Vector2( 300, 670 )
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Output" parent="Frame/Sidebar" instance=ExtResource( 4 )]
+
+[node name="Examples" type="Panel" parent="Frame/Sidebar"]
+margin_top = 165.0
+margin_right = 300.0
+margin_bottom = 670.0
+rect_min_size = Vector2( 300, 505 )
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="List" type="VBoxContainer" parent="Frame/Sidebar/Examples"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 285.0
+margin_bottom = 395.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Frame/Sidebar/Examples/List"]
+margin_right = 270.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 6 )
+text = "Available Examples:"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Authentication" type="Button" parent="Frame/Sidebar/Examples/List"]
+margin_top = 32.0
+margin_right = 270.0
+margin_bottom = 60.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+text = "Authentication"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Avatars" type="Button" parent="Frame/Sidebar/Examples/List"]
+margin_top = 70.0
+margin_right = 270.0
+margin_bottom = 98.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_colors/font_color_disabled = Color( 0.258824, 0.258824, 0.258824, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Avatars"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Inputs" type="Button" parent="Frame/Sidebar/Examples/List"]
+margin_top = 108.0
+margin_right = 270.0
+margin_bottom = 136.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+text = "Inputs"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Leaderboards" type="Button" parent="Frame/Sidebar/Examples/List"]
+margin_top = 146.0
+margin_right = 270.0
+margin_bottom = 174.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+text = "Leaderboards"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Lobby" type="Button" parent="Frame/Sidebar/Examples/List"]
+margin_top = 184.0
+margin_right = 270.0
+margin_bottom = 212.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+text = "Lobby"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StatsAchievements" type="Button" parent="Frame/Sidebar/Examples/List"]
+margin_top = 222.0
+margin_right = 270.0
+margin_bottom = 250.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+text = "Stats and Achievements"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Voice" type="Button" parent="Frame/Sidebar/Examples/List"]
+margin_top = 260.0
+margin_right = 270.0
+margin_bottom = 288.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+text = "Voice"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Examples/List"]
+margin_top = 298.0
+margin_right = 270.0
+margin_bottom = 320.0
+custom_fonts/font = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Exit" type="Button" parent="Frame/Sidebar/Examples/List"]
+margin_top = 330.0
+margin_right = 270.0
+margin_bottom = 358.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+text = "Exit"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Authentication" to="." method="_start_Example" binds= [ "authentication" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Avatars" to="." method="_start_Example" binds= [ "avatars" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Inputs" to="." method="_start_Example" binds= [ "inputs" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Leaderboards" to="." method="_start_Example" binds= [ "leaderboards" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Lobby" to="." method="_start_Example" binds= [ "lobby" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/StatsAchievements" to="." method="_start_Example" binds= [ "stats-achieves" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Voice" to="." method="_start_Example" binds= [ "voice" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Exit" to="." method="_on_Exit_pressed"]

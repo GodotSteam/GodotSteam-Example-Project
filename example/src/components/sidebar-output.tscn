@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://data/fonts/list-titles.tres" type="DynamicFont" id=1]
+[ext_resource path="res://data/fonts/output-text.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/components/sidebar-output.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="Theme" id=2]
+Panel/styles/panel = SubResource( 1 )
+
+[node name="Output" type="Panel"]
+margin_right = 300.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 300, 140 )
+theme = SubResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Status" type="VBoxContainer" parent="."]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 285.0
+margin_bottom = 77.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Status"]
+margin_right = 270.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 1 )
+text = "Steamworks Status"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ID" type="Label" parent="Status"]
+margin_top = 32.0
+margin_right = 270.0
+margin_bottom = 51.0
+custom_fonts/font = ExtResource( 2 )
+text = "Steam ID"
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Username" type="Label" parent="Status"]
+margin_top = 61.0
+margin_right = 270.0
+margin_bottom = 80.0
+custom_fonts/font = ExtResource( 2 )
+text = "Username"
+clip_text = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Owns" type="Label" parent="Status"]
+margin_top = 90.0
+margin_right = 270.0
+margin_bottom = 109.0
+custom_fonts/font = ExtResource( 2 )
+text = "Owns game?"
+clip_text = true
+__meta__ = {
+"_edit_lock_": true
+}

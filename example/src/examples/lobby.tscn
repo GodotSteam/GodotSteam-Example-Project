@@ -1,0 +1,391 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/examples/lobby.gd" type="Script" id=1]
+[ext_resource path="res://data/themes/button-theme.tres" type="Theme" id=2]
+[ext_resource path="res://data/fonts/list-titles.tres" type="DynamicFont" id=3]
+[ext_resource path="res://data/fonts/descriptions.tres" type="DynamicFont" id=4]
+[ext_resource path="res://data/fonts/sub-titles.tres" type="DynamicFont" id=5]
+[ext_resource path="res://data/fonts/output-text.tres" type="DynamicFont" id=6]
+[ext_resource path="res://src/components/main-frame.tscn" type="PackedScene" id=7]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.258824, 0.258824, 0.258824, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 15.0
+content_margin_bottom = 15.0
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+
+[node name="P2P" type="Panel"]
+rect_min_size = Vector2( 1280, 720 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Frame" parent="." instance=ExtResource( 7 )]
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Lobby Example"
+
+[node name="Message" type="Label" parent="Frame/Main" index="1"]
+margin_top = 73.0
+margin_right = 905.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 4 )
+text = "This example will let you test various lobby functionality; as well as P2P packet functions."
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Displays" type="HBoxContainer" parent="Frame/Main" index="2"]
+margin_top = 116.0
+margin_right = 905.0
+margin_bottom = 552.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Outputs" type="VBoxContainer" parent="Frame/Main/Displays"]
+margin_right = 580.0
+margin_bottom = 436.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Titles" type="HBoxContainer" parent="Frame/Main/Displays/Outputs"]
+margin_right = 580.0
+margin_bottom = 19.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Output Title" type="Label" parent="Frame/Main/Displays/Outputs/Titles"]
+margin_right = 288.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
+text = "Output Display"
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Lobby" type="Label" parent="Frame/Main/Displays/Outputs/Titles"]
+margin_left = 292.0
+margin_right = 580.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
+text = "Lobby ID: 0"
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Output" type="RichTextLabel" parent="Frame/Main/Displays/Outputs"]
+margin_top = 23.0
+margin_right = 580.0
+margin_bottom = 436.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/shadow_as_outline = 50
+custom_fonts/normal_font = ExtResource( 6 )
+custom_styles/normal = SubResource( 1 )
+scroll_following = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PlayerList" type="VBoxContainer" parent="Frame/Main/Displays"]
+margin_left = 605.0
+margin_right = 905.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 300, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="Label" parent="Frame/Main/Displays/PlayerList"]
+margin_right = 300.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 5 )
+text = "Player List (0)"
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Players" type="VBoxContainer" parent="Frame/Main/Displays/PlayerList"]
+margin_top = 23.0
+margin_right = 300.0
+margin_bottom = 436.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Chat Title" type="Label" parent="Frame/Main" index="3"]
+margin_top = 577.0
+margin_right = 905.0
+margin_bottom = 596.0
+custom_fonts/font = ExtResource( 5 )
+text = "Chat"
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Messaging" type="HBoxContainer" parent="Frame/Main" index="4"]
+margin_top = 621.0
+margin_right = 905.0
+margin_bottom = 670.0
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Chat" type="LineEdit" parent="Frame/Main/Messaging"]
+margin_right = 730.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 6 )
+custom_styles/read_only = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+editable = false
+placeholder_text = "Enter a chat message..."
+caret_blink = true
+caret_blink_speed = 0.5
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Send" type="Button" parent="Frame/Main/Messaging"]
+margin_left = 755.0
+margin_right = 905.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 150, 0 )
+theme = ExtResource( 2 )
+disabled = true
+text = "Send Message"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="0"]
+text = "Lobby Functions"
+
+[node name="CreateLobby" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+margin_top = 32.0
+margin_right = 270.0
+margin_bottom = 60.0
+theme = ExtResource( 2 )
+text = "Create Lobby"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="OpenLobby List" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+margin_top = 70.0
+margin_right = 270.0
+margin_bottom = 98.0
+theme = ExtResource( 2 )
+text = "Open Lobby List"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="GetLobbyData" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+margin_top = 108.0
+margin_right = 270.0
+margin_bottom = 136.0
+theme = ExtResource( 2 )
+disabled = true
+text = "Get Lobby Data"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Leave" type="Button" parent="Frame/Sidebar/Options/List" index="4"]
+margin_top = 146.0
+margin_right = 270.0
+margin_bottom = 174.0
+theme = ExtResource( 2 )
+disabled = true
+text = "Leave Lobby"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Spacer1" type="Label" parent="Frame/Sidebar/Options/List" index="5"]
+margin_top = 184.0
+margin_right = 270.0
+margin_bottom = 206.0
+custom_fonts/font = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="P2P Title" type="Label" parent="Frame/Sidebar/Options/List" index="6"]
+margin_top = 216.0
+margin_right = 270.0
+margin_bottom = 238.0
+custom_fonts/font = ExtResource( 3 )
+text = "P2P Functions"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SendPacket" type="Button" parent="Frame/Sidebar/Options/List" index="7"]
+margin_top = 248.0
+margin_right = 270.0
+margin_bottom = 276.0
+theme = ExtResource( 2 )
+disabled = true
+text = "Send Test Packet"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Spacer2" type="Label" parent="Frame/Sidebar/Options/List" index="8"]
+margin_top = 286.0
+margin_right = 270.0
+margin_bottom = 308.0
+custom_fonts/font = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="9"]
+margin_top = 318.0
+margin_right = 270.0
+margin_bottom = 346.0
+theme = ExtResource( 2 )
+text = "Back To Main Menu"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Lobbies" type="Panel" parent="."]
+visible = false
+margin_left = 25.0
+margin_top = 125.0
+margin_right = 905.0
+margin_bottom = 638.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="Label" parent="Lobbies"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 315.0
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 5 )
+text = "Lobby List"
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Scroll" type="ScrollContainer" parent="Lobbies"]
+margin_left = 15.0
+margin_top = 50.0
+margin_right = 860.0
+margin_bottom = 440.0
+custom_styles/bg = SubResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="List" type="VBoxContainer" parent="Lobbies/Scroll"]
+margin_right = 825.0
+margin_bottom = 390.0
+rect_min_size = Vector2( 825, 390 )
+custom_constants/separation = 10
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Close Lobbies" type="Button" parent="Lobbies"]
+margin_left = 660.0
+margin_top = 455.0
+margin_right = 861.0
+margin_bottom = 489.0
+theme = ExtResource( 2 )
+text = "Close Lobby List"
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Refresh" type="Button" parent="Lobbies"]
+margin_left = 434.903
+margin_top = 455.289
+margin_right = 632.903
+margin_bottom = 489.289
+theme = ExtResource( 2 )
+disabled = true
+text = "Refresh"
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Frame/Main/Messaging/Send" to="." method="_on_Send_Chat_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/CreateLobby" to="." method="_on_Create_Lobby_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/OpenLobby List" to="." method="_on_Open_Lobby_List_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLobbyData" to="." method="_on_Get_Lobby_Data_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Leave" to="." method="_on_Leave_Lobby_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/SendPacket" to="." method="_on_Send_Packet_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Lobbies/Close Lobbies" to="." method="_on_Close_Lobbies_pressed"]
+[connection signal="pressed" from="Lobbies/Refresh" to="." method="_on_Refresh_pressed"]
+
+[editable path="Frame"]

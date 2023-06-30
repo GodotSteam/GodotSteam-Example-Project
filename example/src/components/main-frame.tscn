@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://data/fonts/main-titles.tres" type="DynamicFont" id=1]
+[ext_resource path="res://data/images/inverted-logo.png" type="Texture" id=2]
+[ext_resource path="res://src/components/sidebar-output.tscn" type="PackedScene" id=3]
+[ext_resource path="res://data/fonts/list-titles.tres" type="DynamicFont" id=4]
+[ext_resource path="res://data/themes/panel-theme.tres" type="Theme" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="Theme" id=2]
+Panel/styles/panel = SubResource( 1 )
+
+[node name="Frame" type="HBoxContainer"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 1255.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 1230, 670 )
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Main" type="VBoxContainer" parent="."]
+margin_right = 905.0
+margin_bottom = 670.0
+rect_min_size = Vector2( 905, 670 )
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Topbar" type="HBoxContainer" parent="Main"]
+margin_right = 905.0
+margin_bottom = 48.0
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Logo" type="TextureRect" parent="Main/Topbar"]
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="Label" parent="Main/Topbar"]
+margin_left = 73.0
+margin_right = 905.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sidebar" type="VBoxContainer" parent="."]
+margin_left = 930.0
+margin_right = 1230.0
+margin_bottom = 670.0
+rect_min_size = Vector2( 300, 670 )
+custom_constants/separation = 25
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Output" parent="Sidebar" instance=ExtResource( 3 )]
+theme = SubResource( 2 )
+
+[node name="Options" type="Panel" parent="Sidebar"]
+margin_top = 165.0
+margin_right = 300.0
+margin_bottom = 670.0
+rect_min_size = Vector2( 300, 505 )
+theme = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="List" type="VBoxContainer" parent="Sidebar/Options"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 55.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 270, 475 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="Label" parent="Sidebar/Options/List"]
+margin_right = 270.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
