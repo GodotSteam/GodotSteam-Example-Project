@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://da10if42gew8v"]
+
+[ext_resource type="FontFile" uid="uid://bynwncm0p3kmb" path="res://data/fonts/main-titles.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://g8iqnvyiyood" path="res://data/images/inverted-logo.png" id="2"]
+[ext_resource type="PackedScene" uid="uid://m480dfm4psbw" path="res://src/components/sidebar-output.tscn" id="3"]
+[ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="4"]
+[ext_resource type="Theme" uid="uid://d242gcxihdusv" path="res://data/themes/panel-theme.tres" id="5"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="Theme" id="2"]
+Panel/styles/panel = SubResource("1")
+
+[node name="Frame" type="HBoxContainer"]
+custom_minimum_size = Vector2(1230, 670)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -615.0
+offset_top = -335.0
+offset_right = 615.0
+offset_bottom = 345.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Main" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(905, 670)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Topbar" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Logo" type="TextureRect" parent="Main/Topbar"]
+layout_mode = 2
+texture = ExtResource("2")
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="Main/Topbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 35
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Sidebar" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 670)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Output" parent="Sidebar" instance=ExtResource("3")]
+layout_mode = 2
+theme = SubResource("2")
+
+[node name="Options" type="Panel" parent="Sidebar"]
+custom_minimum_size = Vector2(300, 495)
+layout_mode = 2
+theme = ExtResource("5")
+metadata/_edit_lock_ = true
+
+[node name="List" type="VBoxContainer" parent="Sidebar/Options"]
+custom_minimum_size = Vector2(270, 465)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 55.0
+offset_bottom = 55.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="Sidebar/Options/List"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4")
+metadata/_edit_lock_ = true

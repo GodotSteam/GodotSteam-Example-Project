@@ -1,0 +1,410 @@
+[gd_scene load_steps=14 format=3 uid="uid://bno2vpjbf6g0b"]
+
+[ext_resource type="Script" path="res://src/examples/stats-achieves.gd" id="1"]
+[ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="2"]
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="3"]
+[ext_resource type="Theme" uid="uid://byxtc8ud55l0v" path="res://data/themes/dropdown-theme.tres" id="5"]
+[ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="6"]
+[ext_resource type="FontFile" path="res://data/fonts/output-text.tres" id="7"]
+[ext_resource type="Texture2D" uid="uid://75y1l3r1ekie" path="res://data/images/default-avatar-medium.png" id="8"]
+[ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="9"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="6"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.258824, 0.258824, 0.258824, 1)
+
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="5"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="StatsAchieves" type="Panel"]
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1")
+metadata/_edit_lock_ = true
+
+[node name="Frame" parent="." instance=ExtResource("9")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1255.0
+offset_bottom = 695.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Stats And Achievements Example"
+
+[node name="Message" type="RichTextLabel" parent="Frame/Main" index="1"]
+layout_mode = 2
+text = "Here we have functions for both achievements and statistics.  Since there is no way to query all available statistics and achievements for a game, only the Spacewars app ID will work in this example."
+fit_content = true
+metadata/_edit_lock_ = true
+
+[node name="Selections" type="Panel" parent="Frame/Main" index="2"]
+custom_minimum_size = Vector2(905, 85)
+layout_mode = 2
+theme_override_styles/panel = SubResource("1")
+metadata/_edit_lock_ = true
+
+[node name="Grid" type="GridContainer" parent="Frame/Main/Selections"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 860.0
+offset_bottom = 75.0
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 5
+columns = 2
+metadata/_edit_lock_ = true
+
+[node name="Subtitle1" type="Label" parent="Frame/Main/Selections/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+text = "Select An Achievement To Manipulate"
+metadata/_edit_lock_ = true
+
+[node name="Subtitle2" type="Label" parent="Frame/Main/Selections/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+text = "Select A Statistics To Manipulate"
+metadata/_edit_lock_ = true
+
+[node name="Achievements" type="OptionButton" parent="Frame/Main/Selections/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme = ExtResource("5")
+metadata/_edit_lock_ = true
+
+[node name="Statistics" type="HBoxContainer" parent="Frame/Main/Selections/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
+
+[node name="Select" type="OptionButton" parent="Frame/Main/Selections/Grid/Statistics"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme = ExtResource("5")
+metadata/_edit_lock_ = true
+
+[node name="Amount" type="LineEdit" parent="Frame/Main/Selections/Grid/Statistics"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7")
+theme_override_styles/normal = SubResource("6")
+placeholder_text = "Enter new value"
+caret_blink = true
+caret_blink_interval = 0.5
+metadata/_edit_lock_ = true
+
+[node name="Readout" type="HBoxContainer" parent="Frame/Main" index="3"]
+layout_mode = 2
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Achievements" type="Panel" parent="Frame/Main/Readout"]
+custom_minimum_size = Vector2(425, 270)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("3")
+metadata/_edit_lock_ = true
+
+[node name="List" type="VBoxContainer" parent="Frame/Main/Readout/Achievements"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 410.0
+offset_bottom = 55.0
+theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="Frame/Main/Readout/Achievements/List"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+text = "Current Achievements"
+metadata/_edit_lock_ = true
+
+[node name="Grid" type="GridContainer" parent="Frame/Main/Readout/Achievements/List"]
+layout_mode = 2
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 10
+columns = 2
+metadata/_edit_lock_ = true
+
+[node name="Achieve1" type="Label" parent="Frame/Main/Readout/Achievements/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "ACH_WIN_ONE_GAME"
+metadata/_edit_lock_ = true
+
+[node name="Value1" type="Label" parent="Frame/Main/Readout/Achievements/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "False"
+metadata/_edit_lock_ = true
+
+[node name="Achieve2" type="Label" parent="Frame/Main/Readout/Achievements/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "ACH_WIN_100_GAMES"
+metadata/_edit_lock_ = true
+
+[node name="Value2" type="Label" parent="Frame/Main/Readout/Achievements/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "False"
+metadata/_edit_lock_ = true
+
+[node name="Achieve3" type="Label" parent="Frame/Main/Readout/Achievements/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "ACH_TRAVEL_FAR_ACCUM"
+metadata/_edit_lock_ = true
+
+[node name="Value3" type="Label" parent="Frame/Main/Readout/Achievements/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "False"
+metadata/_edit_lock_ = true
+
+[node name="Achieve4" type="Label" parent="Frame/Main/Readout/Achievements/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "ACH_TRAVEL_FAR_SINGLE"
+metadata/_edit_lock_ = true
+
+[node name="Value4" type="Label" parent="Frame/Main/Readout/Achievements/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "False"
+metadata/_edit_lock_ = true
+
+[node name="Spacer" type="Label" parent="Frame/Main/Readout/Achievements/List"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+metadata/_edit_lock_ = true
+
+[node name="Icon" type="Label" parent="Frame/Main/Readout/Achievements/List"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+text = "Selected Achievement Icon"
+metadata/_edit_lock_ = true
+
+[node name="Icon" type="Sprite2D" parent="Frame/Main/Readout/Achievements/List/Icon"]
+position = Vector2(275, 22)
+texture = ExtResource("8")
+metadata/_edit_lock_ = true
+
+[node name="Background" type="ColorRect" parent="Frame/Main/Readout/Achievements/List/Icon/Icon"]
+show_behind_parent = true
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0.278431, 0.54902, 0.74902, 1)
+metadata/_edit_lock_ = true
+
+[node name="Statistics" type="Panel" parent="Frame/Main/Readout"]
+custom_minimum_size = Vector2(425, 270)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("4")
+metadata/_edit_lock_ = true
+
+[node name="List" type="VBoxContainer" parent="Frame/Main/Readout/Statistics"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 410.0
+offset_bottom = 55.0
+theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="Frame/Main/Readout/Statistics/List"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+text = "Current Statistics"
+metadata/_edit_lock_ = true
+
+[node name="Grid" type="GridContainer" parent="Frame/Main/Readout/Statistics/List"]
+layout_mode = 2
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 10
+columns = 2
+metadata/_edit_lock_ = true
+
+[node name="Stat1" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "NumGames"
+metadata/_edit_lock_ = true
+
+[node name="Value1" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "0"
+metadata/_edit_lock_ = true
+
+[node name="Stat2" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "NumWins"
+metadata/_edit_lock_ = true
+
+[node name="Value2" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "0"
+metadata/_edit_lock_ = true
+
+[node name="Stat3" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "NumLosses"
+metadata/_edit_lock_ = true
+
+[node name="Value3" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "0"
+metadata/_edit_lock_ = true
+
+[node name="Stat4" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "FeetTraveled"
+metadata/_edit_lock_ = true
+
+[node name="Value4" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "0.0"
+metadata/_edit_lock_ = true
+
+[node name="Stat5" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "MaxFeetTraveled"
+metadata/_edit_lock_ = true
+
+[node name="Value5" type="Label" parent="Frame/Main/Readout/Statistics/List/Grid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7")
+text = "0.0"
+metadata/_edit_lock_ = true
+
+[node name="Output Title" type="Label" parent="Frame/Main" index="4"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+text = "Debug Output"
+metadata/_edit_lock_ = true
+
+[node name="Output" type="RichTextLabel" parent="Frame/Main" index="5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("5")
+scroll_following = true
+metadata/_edit_lock_ = true
+
+[node name="List" parent="Frame/Sidebar/Options" index="0"]
+offset_right = 285.0
+offset_bottom = 480.0
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="0"]
+text = "Statistic Functions"
+
+[node name="requestCurrentStats" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3")
+text = "Request Current Stats"
+metadata/_edit_lock_ = true
+
+[node name="requestUserStats" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3")
+text = "Request User Stats"
+metadata/_edit_lock_ = true
+
+[node name="setStats" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3")
+text = "Set Selected Statistic"
+metadata/_edit_lock_ = true
+
+[node name="resetAllStats" type="Button" parent="Frame/Sidebar/Options/List" index="4"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3")
+text = "Reset All Stats"
+metadata/_edit_lock_ = true
+
+[node name="Spacer1" type="Label" parent="Frame/Sidebar/Options/List" index="5"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+metadata/_edit_lock_ = true
+
+[node name="Achievement Title" type="Label" parent="Frame/Sidebar/Options/List" index="6"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "Achievement Functions"
+metadata/_edit_lock_ = true
+
+[node name="setAchievement" type="Button" parent="Frame/Sidebar/Options/List" index="7"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3")
+text = "Fire Selected Achievement"
+metadata/_edit_lock_ = true
+
+[node name="getAchievementIcon" type="Button" parent="Frame/Sidebar/Options/List" index="8"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3")
+text = "Get Achievement Icon"
+metadata/_edit_lock_ = true
+
+[node name="Spacer2" type="Label" parent="Frame/Sidebar/Options/List" index="9"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+metadata/_edit_lock_ = true
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="10"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3")
+text = "Back To Main Menu"
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Frame/Sidebar/Options/List/requestCurrentStats" to="." method="_on_requestCurrentStats_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/requestUserStats" to="." method="_on_requestUserStats_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/setStats" to="." method="_on_setStats_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/resetAllStats" to="." method="_on_resetAllStats_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/setAchievement" to="." method="_on_setAchievement_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/getAchievementIcon" to="." method="_on_getAchievementIcon_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+
+[editable path="Frame"]

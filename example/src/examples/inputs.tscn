@@ -1,0 +1,137 @@
+[gd_scene load_steps=8 format=3 uid="uid://dluh0br2vwqx5"]
+
+[ext_resource type="Script" path="res://src/examples/inputs.gd" id="1"]
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
+[ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="3"]
+[ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="5"]
+[ext_resource type="FontFile" path="res://data/fonts/output-text.tres" id="6"]
+[ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="7"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="Inputs" type="Panel"]
+custom_minimum_size = Vector2(1280, 720)
+script = ExtResource("1")
+metadata/_edit_lock_ = true
+
+[node name="Frame" parent="." instance=ExtResource("7")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1255.0
+offset_bottom = 705.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Inputs Example (WIP)"
+
+[node name="Message" type="RichTextLabel" parent="Frame/Main" index="1"]
+layout_mode = 2
+text = "The Input class should be able to handle all types of controllers.  This example is currently a little wonky and may not work as intended."
+fit_content = true
+metadata/_edit_lock_ = true
+
+[node name="Output Title" type="Label" parent="Frame/Main" index="2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5")
+text = "Input Output"
+metadata/_edit_lock_ = true
+
+[node name="Output" type="RichTextLabel" parent="Frame/Main" index="3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("6")
+theme_override_styles/normal = SubResource("1")
+scroll_following = true
+metadata/_edit_lock_ = true
+
+[node name="List" parent="Frame/Sidebar/Options" index="0"]
+offset_right = 285.0
+offset_bottom = 480.0
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="0"]
+text = "Input Functions"
+
+[node name="Init" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Initialize Inputs"
+metadata/_edit_lock_ = true
+
+[node name="Shutdown" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Shutdown Inputs"
+metadata/_edit_lock_ = true
+
+[node name="GetControllers" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Get Controllers"
+metadata/_edit_lock_ = true
+
+[node name="Vibrate" type="Button" parent="Frame/Sidebar/Options/List" index="4"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Trigger Vibrate"
+metadata/_edit_lock_ = true
+
+[node name="Haptic" type="Button" parent="Frame/Sidebar/Options/List" index="5"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Trigger Haptic Pulse"
+metadata/_edit_lock_ = true
+
+[node name="HapticRepeated" type="Button" parent="Frame/Sidebar/Options/List" index="6"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Trigger Repeated Haptic Pulse"
+metadata/_edit_lock_ = true
+
+[node name="GetName" type="Button" parent="Frame/Sidebar/Options/List" index="7"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Get Input Name"
+metadata/_edit_lock_ = true
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="8"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
+metadata/_edit_lock_ = true
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="9"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Back To Main Menu"
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Init" to="." method="_on_Init_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Shutdown" to="." method="_on_Shutdown_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetControllers" to="." method="_on_GetControllers_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Vibrate" to="." method="_on_Vibrate_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Haptic" to="." method="_on_Haptic_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/HapticRepeated" to="." method="_on_HapticRepeated_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetName" to="." method="_on_GetName_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+
+[editable path="Frame"]

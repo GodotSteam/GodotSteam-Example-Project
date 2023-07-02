@@ -1,0 +1,233 @@
+[gd_scene load_steps=12 format=3 uid="uid://crjqw2v603ei2"]
+
+[ext_resource type="Script" path="res://src/examples/voice.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dguu85jeyl3hb" path="res://data/images/microphone-solid.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://saeg11etwq4l" path="res://data/images/microphone-slash-solid.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bkwh4dmu5xrwy" path="res://data/images/volume-xmark-solid.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://crqhchoob1aka" path="res://data/images/headphones-solid.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://cwwru1il0t6w3" path="res://data/images/volume-high-solid.png" id="6"]
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="8"]
+[ext_resource type="Texture2D" uid="uid://q2eb16hdrk5w" path="res://data/images/optimal.png" id="9"]
+[ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="11"]
+
+[sub_resource type="AudioStreamGenerator" id="4"]
+buffer_length = 0.1
+
+[sub_resource type="AudioStreamWAV" id="3"]
+format = 1
+
+[node name="Voice" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+metadata/_edit_lock_ = true
+
+[node name="Frame" parent="." instance=ExtResource("11")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1255.0
+offset_bottom = 695.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Voice Example"
+
+[node name="Message" type="RichTextLabel" parent="Frame/Main" index="1"]
+layout_mode = 2
+text = "Here we test some functionality for Steam Voice to capture and playback voice chat.
+
+You can press-to-talk or toggle voice on/off.  To hear yourself, enable loopback.  You can also change the optimal sample rate by pressing the corresponding button.  However, as Valve notes, using the optimal sample rate will result in lower CPU usage but may sound worse.
+
+You may also notice the playback seems a little jumpy or choppy.  No one has quite figured out why that is yet.  If you can solve this, please open a pull-request!"
+fit_content = true
+metadata/_edit_lock_ = true
+
+[node name="Notifications" type="VBoxContainer" parent="Frame/Main" index="2"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="On" type="TextureRect" parent="Frame/Main/Notifications"]
+visible = false
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("2")
+stretch_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Notifications/On"]
+custom_minimum_size = Vector2(250, 32)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 300.0
+offset_bottom = 32.0
+text = "Microphone On"
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Off" type="TextureRect" parent="Frame/Main/Notifications"]
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("3")
+stretch_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Notifications/Off"]
+custom_minimum_size = Vector2(250, 32)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 300.0
+offset_bottom = 26.0
+text = "Microphone Off"
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Loopback" type="TextureRect" parent="Frame/Main/Notifications"]
+visible = false
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("5")
+stretch_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Notifications/Loopback"]
+custom_minimum_size = Vector2(250, 32)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 300.0
+offset_bottom = 32.0
+text = "Loopback Enabled"
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Speaking" type="TextureRect" parent="Frame/Main/Notifications"]
+visible = false
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("6")
+stretch_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Notifications/Speaking"]
+custom_minimum_size = Vector2(250, 32)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 300.0
+offset_bottom = 32.0
+text = "Someone Speaking"
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Mute" type="TextureRect" parent="Frame/Main/Notifications"]
+visible = false
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("4")
+stretch_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Notifications/Mute"]
+custom_minimum_size = Vector2(250, 32)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 300.0
+offset_bottom = 32.0
+text = "Voice Muted"
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Optimal" type="TextureRect" parent="Frame/Main/Notifications"]
+visible = false
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("9")
+stretch_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Notifications/Optimal"]
+custom_minimum_size = Vector2(250, 32)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 300.0
+offset_bottom = 32.0
+text = "Using Optimal Sample Rate"
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Players" type="Control" parent="Frame/Main" index="3"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Local" type="AudioStreamPlayer" parent="Frame/Main/Players"]
+stream = SubResource("4")
+
+[node name="Network" type="AudioStreamPlayer" parent="Frame/Main/Players"]
+stream = SubResource("3")
+
+[node name="List" parent="Frame/Sidebar/Options" index="0"]
+offset_right = 285.0
+offset_bottom = 480.0
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="0"]
+text = "Voice Functions"
+
+[node name="ToTalk" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+layout_mode = 2
+theme = ExtResource("8")
+text = "Press-To-Talk"
+metadata/_edit_lock_ = true
+
+[node name="ToggleVoice" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+layout_mode = 2
+theme = ExtResource("8")
+text = "Toggle Voice"
+metadata/_edit_lock_ = true
+
+[node name="Loopback" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+layout_mode = 2
+theme = ExtResource("8")
+text = "Loopback"
+metadata/_edit_lock_ = true
+
+[node name="Optimal" type="Button" parent="Frame/Sidebar/Options/List" index="4"]
+layout_mode = 2
+theme = ExtResource("8")
+text = "Optimal Sample Rate"
+metadata/_edit_lock_ = true
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="5"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="6"]
+layout_mode = 2
+theme = ExtResource("8")
+text = "Back To Main Menu"
+metadata/_edit_lock_ = true
+
+[connection signal="button_down" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_ToTalk_button_down"]
+[connection signal="button_up" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_ToTalk_button_up"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/ToggleVoice" to="." method="_on_ToggleVoice_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Loopback" to="." method="_on_Loopback_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Optimal" to="." method="_on_Optimal_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+
+[editable path="Frame"]

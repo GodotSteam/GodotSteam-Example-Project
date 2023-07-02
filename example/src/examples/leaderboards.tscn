@@ -1,0 +1,183 @@
+[gd_scene load_steps=10 format=3 uid="uid://d1sgvhfif6vux"]
+
+[ext_resource type="Script" path="res://src/examples/leaderboards.gd" id="1"]
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
+[ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="3"]
+[ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="4"]
+[ext_resource type="FontFile" path="res://data/fonts/output-text.tres" id="6"]
+[ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="7"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="3"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxEmpty" id="2"]
+
+[node name="Leaderboards" type="Panel"]
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+metadata/_edit_lock_ = true
+
+[node name="Frame" parent="." instance=ExtResource("7")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1255.0
+offset_bottom = 695.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Leaderboard Example"
+
+[node name="Message" type="RichTextLabel" parent="Frame/Main" index="1"]
+layout_mode = 2
+text = "Most of these leaderboard functions may not work with the default 480 app ID (Spacewars). If you are using your own game's app ID, however, you should be able to use all the leaderboard functions fine; provided everything is set up correctly in your Steamworks back-end."
+fit_content = true
+metadata/_edit_lock_ = true
+
+[node name="Output Title" type="Label" parent="Frame/Main" index="2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4")
+text = "Output:"
+metadata/_edit_lock_ = true
+
+[node name="Output" type="RichTextLabel" parent="Frame/Main" index="3"]
+custom_minimum_size = Vector2(905, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("6")
+theme_override_styles/normal = SubResource("1")
+scroll_following = true
+metadata/_edit_lock_ = true
+
+[node name="Input Title" type="Label" parent="Frame/Main" index="4"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4")
+text = "Leaderboard Name"
+metadata/_edit_lock_ = true
+
+[node name="Name" type="LineEdit" parent="Frame/Main" index="5"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+theme_override_styles/normal = SubResource("3")
+theme_override_styles/focus = SubResource("2")
+placeholder_text = "Enter a leaderboard name"
+caret_blink = true
+caret_blink_interval = 0.5
+metadata/_edit_lock_ = true
+
+[node name="List" parent="Frame/Sidebar/Options" index="0"]
+offset_right = 285.0
+offset_bottom = 480.0
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="0"]
+text = "Leaderboard Options"
+
+[node name="AttachUGC" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Attach Leaderboard UGC"
+metadata/_edit_lock_ = true
+
+[node name="DownloadEntries" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Download Entries"
+metadata/_edit_lock_ = true
+
+[node name="DownloadUserEntries" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Download Entries For Users"
+metadata/_edit_lock_ = true
+
+[node name="FindLeaderboard" type="Button" parent="Frame/Sidebar/Options/List" index="4"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Find Leaderboard"
+metadata/_edit_lock_ = true
+
+[node name="FindOrCreateLeaderboard" type="Button" parent="Frame/Sidebar/Options/List" index="5"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Find Or Create Leaderboard"
+metadata/_edit_lock_ = true
+
+[node name="GetLeaderboardDisplayType" type="Button" parent="Frame/Sidebar/Options/List" index="6"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Get Leaderboard Display Type"
+metadata/_edit_lock_ = true
+
+[node name="GetLeaderboardName" type="Button" parent="Frame/Sidebar/Options/List" index="7"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Get Leaderboard Name"
+metadata/_edit_lock_ = true
+
+[node name="GetLeaderboardSortMethod" type="Button" parent="Frame/Sidebar/Options/List" index="8"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Get Leaderboard Sort Method"
+metadata/_edit_lock_ = true
+
+[node name="GetLeaderboardEntryCount" type="Button" parent="Frame/Sidebar/Options/List" index="9"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Get Leaderboard Entry Count"
+metadata/_edit_lock_ = true
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="10"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
+metadata/_edit_lock_ = true
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="11"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Back To Main Menu"
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Frame/Sidebar/Options/List/AttachUGC" to="." method="_on_AttachLeaderboardUGC_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/DownloadEntries" to="." method="_on_DownloadLeaderboardEntries_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/DownloadUserEntries" to="." method="_on_DownloadLeaderboardEntriesForUsers_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/FindLeaderboard" to="." method="_on_FindLeaderboard_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/FindOrCreateLeaderboard" to="." method="_on_FindOrCreateLeaderboard_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLeaderboardDisplayType" to="." method="_on_GetLeaderboardDisplayType_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLeaderboardName" to="." method="_on_GetLeaderboardName_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLeaderboardSortMethod" to="." method="_on_GetLeaderboardSortMethod_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLeaderboardEntryCount" to="." method="_on_GetLeaderboardEntryCount_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+
+[editable path="Frame"]

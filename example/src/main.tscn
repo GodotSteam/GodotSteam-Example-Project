@@ -1,0 +1,188 @@
+[gd_scene load_steps=9 format=3 uid="uid://bj2ct0kxffelf"]
+
+[ext_resource type="Script" path="res://src/main.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://bynwncm0p3kmb" path="res://data/fonts/main-titles.tres" id="2"]
+[ext_resource type="PackedScene" path="res://src/components/sidebar-output.tscn" id="4"]
+[ext_resource type="FontFile" path="res://data/fonts/button-text.tres" id="5"]
+[ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="6"]
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="7"]
+[ext_resource type="Texture2D" uid="uid://g8iqnvyiyood" path="res://data/images/inverted-logo.png" id="8"]
+
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="Main" type="Panel"]
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1")
+metadata/_edit_lock_ = true
+
+[node name="Frame" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1230, 670)
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1255.0
+offset_bottom = 695.0
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Main" type="VBoxContainer" parent="Frame"]
+custom_minimum_size = Vector2(905, 670)
+layout_mode = 2
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Topbar" type="HBoxContainer" parent="Frame/Main"]
+layout_mode = 2
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Logo" type="TextureRect" parent="Frame/Main/Topbar"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("8")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="Frame/Main/Topbar"]
+custom_minimum_size = Vector2(533, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 35
+text = "GodotSteam Example Project"
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Message" type="RichTextLabel" parent="Frame/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Hey there! Welcome to the GodotSteam Example project. This was designed to show you various parts of Steamworks in a hands-on manner.
+
+Each example .tscn file can be opened up in the editor so you can see all the working parts and tinker with them.  The code in the accompanying .gd files can be copy / pasted into your project with the appropriate modifications.
+
+However, I strongly encourage you to understand exactly how the code is working before copying it over.  You may also have a complete different method of writing GDScript than I do and you should probably re-write what you need to in whatever method you are comfortable with.
+
+Feel free to submit pull requests to this project's repo if you notice something wonky or think you can improve the overall experience.  You may also submit requests for additional examples in the main GodotSteam repo, in the Issues section.  And, as always, if you get stuck or something isn't clear, please reach out on either Github or Discord.
+
+More tutorial examples are coming soon-ish!"
+scroll_active = false
+shortcut_keys_enabled = false
+text_direction = 1
+metadata/_edit_lock_ = true
+
+[node name="Sidebar" type="VBoxContainer" parent="Frame"]
+custom_minimum_size = Vector2(300, 670)
+layout_mode = 2
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Output" parent="Frame/Sidebar" instance=ExtResource("4")]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Examples" type="Panel" parent="Frame/Sidebar"]
+custom_minimum_size = Vector2(300, 505)
+layout_mode = 2
+theme_override_styles/panel = SubResource("3")
+metadata/_edit_lock_ = true
+
+[node name="List" type="VBoxContainer" parent="Frame/Sidebar/Examples"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 285.0
+offset_bottom = 395.0
+theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+text = "Available Examples"
+metadata/_edit_lock_ = true
+
+[node name="Authentication" type="Button" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("7")
+theme_override_fonts/font = ExtResource("5")
+text = "Authentication"
+metadata/_edit_lock_ = true
+
+[node name="Avatars" type="Button" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.258824, 0.258824, 0.258824, 1)
+theme_override_fonts/font = ExtResource("5")
+text = "Avatars"
+metadata/_edit_lock_ = true
+
+[node name="Inputs" type="Button" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("7")
+theme_override_fonts/font = ExtResource("5")
+text = "Inputs"
+metadata/_edit_lock_ = true
+
+[node name="Leaderboards" type="Button" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("7")
+theme_override_fonts/font = ExtResource("5")
+text = "Leaderboards"
+metadata/_edit_lock_ = true
+
+[node name="Lobby" type="Button" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("7")
+theme_override_fonts/font = ExtResource("5")
+text = "Lobby"
+metadata/_edit_lock_ = true
+
+[node name="StatsAchievements" type="Button" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("7")
+theme_override_fonts/font = ExtResource("5")
+text = "Stats and Achievements"
+metadata/_edit_lock_ = true
+
+[node name="Voice" type="Button" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("7")
+theme_override_fonts/font = ExtResource("5")
+text = "Voice"
+metadata/_edit_lock_ = true
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+metadata/_edit_lock_ = true
+
+[node name="Exit" type="Button" parent="Frame/Sidebar/Examples/List"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("7")
+theme_override_fonts/font = ExtResource("5")
+text = "Exit"
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Authentication" to="." method="_start_Example" binds= ["authentication"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Avatars" to="." method="_start_Example" binds= ["avatars"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Inputs" to="." method="_start_Example" binds= ["inputs"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Leaderboards" to="." method="_start_Example" binds= ["leaderboards"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Lobby" to="." method="_start_Example" binds= ["lobby"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/StatsAchievements" to="." method="_start_Example" binds= ["stats-achieves"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Voice" to="." method="_start_Example" binds= ["voice"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Exit" to="." method="_on_Exit_pressed"]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://m480dfm4psbw"]
+
+[ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="1"]
+[ext_resource type="FontFile" path="res://data/fonts/output-text.tres" id="2"]
+[ext_resource type="Script" path="res://src/components/sidebar-output.gd" id="3"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="Theme" id="2"]
+Panel/styles/panel = SubResource("1")
+
+[node name="Output" type="Panel"]
+custom_minimum_size = Vector2(300, 150)
+offset_right = 300.0
+offset_bottom = 140.0
+theme = SubResource("2")
+script = ExtResource("3")
+metadata/_edit_lock_ = true
+
+[node name="Status" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(270, 120)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 285.0
+offset_bottom = 135.0
+theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="Status"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
+text = "Steamworks Status"
+
+[node name="ID" type="Label" parent="Status"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "Steam ID"
+clip_text = true
+
+[node name="Username" type="Label" parent="Status"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "Username"
+clip_text = true
+
+[node name="Owns" type="Label" parent="Status"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "Owns game?"
+clip_text = true

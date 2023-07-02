@@ -1,0 +1,165 @@
+[gd_scene load_steps=13 format=3 uid="uid://dmfboq8t0na2v"]
+
+[ext_resource type="Script" path="res://src/examples/avatars.gd" id="1"]
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
+[ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="3"]
+[ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="5"]
+[ext_resource type="Texture2D" uid="uid://75y1l3r1ekie" path="res://data/images/default-avatar-medium.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bemxdibyjmpmd" path="res://data/images/default-avatar-large.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://cb6dv4yjg40g0" path="res://data/images/default-avatar-small.png" id="8"]
+[ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="9"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="Theme" id="2"]
+Panel/styles/panel = SubResource("1")
+
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="Avatars" type="Panel"]
+custom_minimum_size = Vector2(1280, 720)
+script = ExtResource("1")
+metadata/_edit_lock_ = true
+
+[node name="Frame" parent="." instance=ExtResource("9")]
+layout_mode = 1
+anchors_preset = -1
+offset_bottom = 705.0
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Player Avatar Example"
+
+[node name="Message" type="RichTextLabel" parent="Frame/Main" index="1"]
+layout_mode = 2
+text = "This very brief example shows how to obtain a player's Steam profile avatar.  There are three different sizes and, in this example, they will be applied to Sprite2D nodes. Note that sometimes the API will send back a large avatar bigger than 128 pixels."
+fit_content = true
+metadata/_edit_lock_ = true
+
+[node name="Images" type="GridContainer" parent="Frame/Main" index="2"]
+layout_mode = 2
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 25
+columns = 2
+metadata/_edit_lock_ = true
+
+[node name="Small" type="Panel" parent="Frame/Main/Images"]
+custom_minimum_size = Vector2(425, 80)
+layout_mode = 2
+theme = SubResource("2")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Images/Small"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 217.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("5")
+text = "Small Avatar - 32 x 32 pixels"
+metadata/_edit_lock_ = true
+
+[node name="Avatar" type="Sprite2D" parent="Frame/Main/Images/Small"]
+position = Vector2(10, 40)
+texture = ExtResource("8")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Medium" type="Panel" parent="Frame/Main/Images"]
+custom_minimum_size = Vector2(425, 115)
+layout_mode = 2
+theme_override_styles/panel = SubResource("3")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Images/Medium"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 235.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("5")
+text = "Medium Avatar - 64 x 64 pixels"
+metadata/_edit_lock_ = true
+
+[node name="Avatar" type="Sprite2D" parent="Frame/Main/Images/Medium"]
+position = Vector2(10, 40)
+texture = ExtResource("6")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Large" type="Panel" parent="Frame/Main/Images"]
+custom_minimum_size = Vector2(425, 235)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("4")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Frame/Main/Images/Large"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 236.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("5")
+text = "Large Avatar - 128 x 128 pixels"
+metadata/_edit_lock_ = true
+
+[node name="Avatar" type="Sprite2D" parent="Frame/Main/Images/Large"]
+position = Vector2(10, 40)
+texture = ExtResource("7")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="List" parent="Frame/Sidebar/Options" index="0"]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 285.0
+offset_bottom = 490.0
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="0"]
+text = "Load Avatars"
+
+[node name="Small" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Show Small Avatar"
+metadata/_edit_lock_ = true
+
+[node name="Medium" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Show Medium Avatar"
+metadata/_edit_lock_ = true
+
+[node name="Large" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Show Large Avatar"
+metadata/_edit_lock_ = true
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="4"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
+metadata/_edit_lock_ = true
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="5"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+text = "Back To Main Menu"
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Small" to="." method="_on_Small_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Medium" to="." method="_on_Medium_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Large" to="." method="_on_Large_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+
+[editable path="Frame"]

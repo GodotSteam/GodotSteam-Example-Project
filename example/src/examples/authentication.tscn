@@ -1,0 +1,117 @@
+[gd_scene load_steps=6 format=3 uid="uid://bio5qv4cmuvud"]
+
+[ext_resource type="Script" path="res://src/examples/authentication.gd" id="1"]
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
+[ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="4"]
+[ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="6"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="Authentication" type="Panel"]
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+metadata/_edit_lock_ = true
+
+[node name="Frame" parent="." instance=ExtResource("6")]
+clip_contents = true
+layout_mode = 1
+offset_bottom = 340.0
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Authentication Example"
+
+[node name="Message" type="RichTextLabel" parent="Frame/Main" index="1"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "This example shows how to acquire an authentication ticket from Steam and pass it to another client or server.  Also validating the ticket, closing the session, and all that.  Please note this example is only creating and using auth tickets with yourself.  You will need networking logic to use this correctly with servers and other players."
+metadata/_edit_lock_ = true
+
+[node name="Output Title" type="Label" parent="Frame/Main" index="2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4")
+text = "Output"
+metadata/_edit_lock_ = true
+
+[node name="Output" type="RichTextLabel" parent="Frame/Main" index="3"]
+custom_minimum_size = Vector2(905, 450)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("1")
+scroll_following = true
+metadata/_edit_lock_ = true
+
+[node name="List" parent="Frame/Sidebar/Options" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -232.5
+offset_right = 135.0
+offset_bottom = 232.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="0"]
+text = "Authentication Options"
+
+[node name="GetAuthTicket" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+layout_mode = 2
+theme = ExtResource("2")
+text = "Get Auth Ticket"
+metadata/_edit_lock_ = true
+
+[node name="BeginAuthSession" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+layout_mode = 2
+theme = ExtResource("2")
+text = "Begin Auth Session"
+metadata/_edit_lock_ = true
+
+[node name="CancelAuthTicket" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+layout_mode = 2
+theme = ExtResource("2")
+text = "Cancel Auth Ticket"
+metadata/_edit_lock_ = true
+
+[node name="EndAuthSession" type="Button" parent="Frame/Sidebar/Options/List" index="4"]
+layout_mode = 2
+theme = ExtResource("2")
+text = "End Auth Session"
+metadata/_edit_lock_ = true
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="5"]
+custom_minimum_size = Vector2(0, 19)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="6"]
+layout_mode = 2
+theme = ExtResource("2")
+text = "Back To Main Menu"
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetAuthTicket" to="." method="_on_GetAuthTicket_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/BeginAuthSession" to="." method="_on_BeginAuthSession_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/CancelAuthTicket" to="." method="_on_CancelAuthTicket_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/EndAuthSession" to="." method="_on_EndAuthSession_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+
+[editable path="Frame"]
