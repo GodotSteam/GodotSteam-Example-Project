@@ -1,6 +1,8 @@
 # GodotSteam 4.x Example Project
 This is a basic example of how GodotSteam can work in your game. It is based on the [tutorials from the documentation](https://godotsteam.com/).  This example project is meant for the Godot 4.x module but should work as-is with GDExtension.
 
+[Looking for the Godot 3.x version? Check it out here!](https://github.com/CoaguCo-Industries/GodotSteam-Example-Project/tree/godot3)
+
 Current Build
 ---
 This version covers:
