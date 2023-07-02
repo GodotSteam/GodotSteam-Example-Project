@@ -1,6 +1,8 @@
 # GodotSteam 3.x Example Project
 This is a basic example of how GodotSteam can work in your game. It is based on the [tutorials from the documentation](https://godotsteam.com/).  This example project is meant for the Godot 3.x module but can be adapted for GDNative.
 
+[Looking for the Godot 4.x version? Check it out here!](https://github.com/CoaguCo-Industries/GodotSteam-Example-Project/tree/godot4)
+
 Current Build
 ---
 This version covers:
