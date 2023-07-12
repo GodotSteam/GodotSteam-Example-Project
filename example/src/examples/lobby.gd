@@ -508,7 +508,7 @@ func _on_Send_Chat_pressed() -> void:
 		if not IS_SENT:
 			$Frame/Main/Displays/Outputs/Output.append_text("[ERROR] Chat message '"+str(MESSAGE)+"' failed to send.\n")
 		# Clear the chat input
-		$Frame/Main/Messsaging/Chat.clear()
+		$Frame/Main/Messaging/Chat.clear()
 
 
 #################################################
