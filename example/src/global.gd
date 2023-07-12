@@ -16,8 +16,6 @@ func _ready() -> void:
 
 	if IS_ON_STEAM_DECK:
 		OS.set_window_fullscreen(true)
-	else:
-		OS.set_window_maximized(true)
 
 
 func _initialize_Steam() -> void:
@@ -42,7 +40,7 @@ func _initialize_Steam() -> void:
 		if IS_OWNED == false:
 			print("[STEAM] User does not own this game")
 			# Uncomment this line to close the game if the user does not own the game
-	#		get_tree().quit()
+			#get_tree().quit()
 
 
 # Process all Steamworks callbacks
