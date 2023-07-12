@@ -16,8 +16,6 @@ func _ready() -> void:
 
 	if IS_ON_STEAM_DECK:
 		OS.set_window_fullscreen(true)
-	else:
-		OS.set_window_maximized(true)
 
 
 func _initialize_Steam() -> void:
