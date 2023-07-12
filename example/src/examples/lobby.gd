@@ -373,7 +373,7 @@ func _on_Close_Lobbies_pressed() -> void:
 
 # Getting a lobby match list
 func _on_Lobby_Match_List(lobbies: Array) -> void:
-	# Show the list 
+	# Show the list
 	for LOBBY in lobbies:
 		# Pull lobby data from Steam
 		var LOBBY_NAME: String = Steam.getLobbyData(LOBBY, "name")
@@ -486,7 +486,7 @@ func _on_Lobby_Message(_result: int, user: int, message: String, type: int) -> v
 		match type:
 			2: $Frame/Main/Displays/Outputs/Output.append_bbcode(str(SENDER)+" is typing...\n")
 			3: $Frame/Main/Displays/Outputs/Output.append_bbcode(str(SENDER)+" sent an invite that won't work in this chat!\n")
-			4: $Frame/Main/Displays/Outputs/Output.append_bbcode(str(SENDER)+" sent a text emote that is depreciated.\n")
+			4: $Frame/Main/Displays/Outputs/Output.append_bbcode(str(SENDER)+" sent a text emote that is deprecated.\n")
 			6: $Frame/Main/Displays/Outputs/Output.append_bbcode(str(SENDER)+" has left the chat.\n")
 			7: $Frame/Main/Displays/Outputs/Output.append_bbcode(str(SENDER)+" has entered the chat.\n")
 			8: $Frame/Main/Displays/Outputs/Output.append_bbcode(str(SENDER)+" was kicked!\n")
