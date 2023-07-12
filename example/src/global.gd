@@ -15,9 +15,7 @@ func _ready() -> void:
 	_initialize_Steam()
 
 	if IS_ON_STEAM_DECK:
-		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (true) else Window.MODE_WINDOWED
-	else:
-		get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
+		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
 
 
 func _initialize_Steam() -> void:
