@@ -11,6 +11,8 @@ var STEAM_USERNAME: String = "No one"
 
 
 func _ready() -> void:
+	OS.set_environment("SteamAppId", str(480))
+	OS.set_environment("SteamGameId", str(480))
 	print("Starting the GodotSteam Example project...")
 	_initialize_Steam()
 
