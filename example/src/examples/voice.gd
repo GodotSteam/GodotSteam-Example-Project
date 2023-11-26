@@ -6,130 +6,130 @@ extends Panel
 # Part is based on Valve's SpaceWar example, Voice.cpp / Voice.h files
 # Additional ideas, details, and stuff from Punny and ynot01
 #################################################
-var CURRENT_SAMPLE_RATE: int = 48000
-var HAS_LOOPBACK: bool = false
-var IS_VOICE_TOGGLED: bool = false
-var LOCAL_PLAYBACK: AudioStreamGeneratorPlayback = null
-var LOCAL_VOICE_BUFFER: PoolByteArray = PoolByteArray()
-var NETWORK_PLAYBACK: AudioStreamGeneratorPlayback = null
-var NETWORK_VOICE_BUFFER: PoolByteArray = PoolByteArray()
-var PACKET_READ_LIMIT: int = 5
-var USE_OPTIMAL_SAMPLE_RATE: bool = false
+var current_sample_rate: int = 48000
+var has_loopback: bool = false
+var is_voice_toggled: bool = false
+var local_playback: AudioStreamGeneratorPlayback = null
+var local_voice_buffer: PoolByteArray = PoolByteArray()
+var network_playback: AudioStreamGeneratorPlayback = null
+var network_voice_buffer: PoolByteArray = PoolByteArray()
+var packet_read_limit: int = 5
+var use_optimal_sample_rate: bool = false
 
 
 func _ready() -> void:
-	for NOTIFICATION in $Frame/Main/Notifications.get_children():
-		if NOTIFICATION.name != "Off":
-			NOTIFICATION.hide()
+	for this_notification in $Frame/Main/Notifications.get_children():
+		if this_notification.name != "Off":
+			this_notification.hide()
 
 
 func _process(_delta: float) -> void:
 	# Essentially checking for the local voice data then sending it to the networking
 	# Plays locally if loopback is enabled
-	_check_For_Voice()
+	check_for_voice()
 
 
 #################################################
 # BUTTON HANDLING
 #################################################
 # So you can hear yourself, duh
-func _on_Loopback_pressed() -> void:
-	HAS_LOOPBACK = !HAS_LOOPBACK
-	print("Loopback enabled: "+str(HAS_LOOPBACK))
-	$Frame/Main/Notifications/Loopback.set_visible(HAS_LOOPBACK)
+func _on_loopback_pressed() -> void:
+	has_loopback = !has_loopback
+	print("Loopback enabled: %s" % has_loopback)
+	$Frame/Main/Notifications/Loopback.set_visible(has_loopback)
 
 
-func _on_Optimal_pressed() -> void:
-	USE_OPTIMAL_SAMPLE_RATE = !USE_OPTIMAL_SAMPLE_RATE
-	$Frame/Main/Notifications/Optimal.set_visible(USE_OPTIMAL_SAMPLE_RATE)
+func _on_optimal_pressed() -> void:
+	use_optimal_sample_rate = !use_optimal_sample_rate
+	$Frame/Main/Notifications/Optimal.set_visible(use_optimal_sample_rate)
 
 
-func _on_ToggleVoice_pressed() -> void:
-	IS_VOICE_TOGGLED = !IS_VOICE_TOGGLED
-	print("Toggling voice chat: "+str(IS_VOICE_TOGGLED))
-	_change_Voice_Status()
+func _on_toggle_voice_pressed() -> void:
+	is_voice_toggled = !is_voice_toggled
+	print("Toggling voice chat: %s" % is_voice_toggled)
+	change_voice_status()
 
 
-func _on_ToTalk_button_down() -> void:
+func _on_to_talk_button_down() -> void:
 	print("Starting voice chat")
-	IS_VOICE_TOGGLED = true
-	_change_Voice_Status()
+	is_voice_toggled = true
+	change_voice_status()
 
 
-func _on_ToTalk_button_up() -> void:
+func _on_to_talk_button_up() -> void:
 	print("Stopping voice chat")
-	IS_VOICE_TOGGLED = false
-	_change_Voice_Status()
+	is_voice_toggled = false
+	change_voice_status()
 
 
 #################################################
 # VOICE FUNCTIONS
 #################################################
-func _change_Voice_Status() -> void:
-	$Frame/Main/Notifications/On.set_visible(IS_VOICE_TOGGLED)
-	$Frame/Main/Notifications/Off.set_visible(!IS_VOICE_TOGGLED)
+func change_voice_status() -> void:
+	$Frame/Main/Notifications/On.set_visible(is_voice_toggled)
+	$Frame/Main/Notifications/Off.set_visible(!is_voice_toggled)
 	# If talking, it suppresses all other voice comms from Steam UI
-	Steam.setInGameVoiceSpeaking(Global.STEAM_ID, IS_VOICE_TOGGLED)
+	Steam.setInGameVoiceSpeaking(Global.steam_id, is_voice_toggled)
 
-	if IS_VOICE_TOGGLED:
+	if is_voice_toggled:
 		Steam.startVoiceRecording()
 	else:
 		Steam.stopVoiceRecording()
 
 
-func _check_For_Voice() -> void:
-	var AVAILABLE_VOICE: Dictionary = Steam.getAvailableVoice()
-	if AVAILABLE_VOICE['result'] == Steam.VOICE_RESULT_OK and AVAILABLE_VOICE['buffer'] > 0:
+func check_for_voice() -> void:
+	var available_voice: Dictionary = Steam.getAvailableVoice()
+	if available_voice['result'] == Steam.VOICE_RESULT_OK and available_voice['buffer'] > 0:
 		print("Voice message found")
 		# Valve's getVoice uses 1024 but GodotSteam's is set at 8192?
 		# Our sizes might be way off; internal GodotSteam notes that Valve suggests 8kb
 		# However, this is not mentioned in the header nor the SpaceWar example but -is- in Valve's docs which are usually wrong
-		var VOICE_DATA: Dictionary = Steam.getVoice()
-		if VOICE_DATA['result'] == Steam.VOICE_RESULT_OK and VOICE_DATA['written']:
-			print("Voice message has data: "+str(VOICE_DATA['result'])+" / "+str(VOICE_DATA['written']))
-			Networking._send_Message(VOICE_DATA['buffer'])
+		var voice_data: Dictionary = Steam.getVoice()
+		if voice_data['result'] == Steam.VOICE_RESULT_OK and voice_data['written']:
+			print("Voice message has data: %s / %s" % [voice_data['result'], voice_data['written']])
+			Networking.send_message(voice_data['buffer'])
 			# If loopback is enable, play it back at this point
-			if HAS_LOOPBACK:
+			if has_loopback:
 				print("Loopback on")
-				_process_Voice_Data(VOICE_DATA, "local")
+				process_voice_data(voice_data, "local")
 
 
-func _get_Sample_Rate() -> void:
-	var OPTIMAL_SAMPLE_RATE: int = Steam.getVoiceOptimalSampleRate()
+func get_sample_rate() -> void:
+	var optimal_sample_rate: int = Steam.getVoiceOptimalSampleRate()
 	# SpaceWar uses 11000 for sample rate?!
 	# If are using Steam's "optimal" rate, set it; otherwise we default to 48000
-	if USE_OPTIMAL_SAMPLE_RATE:
-		CURRENT_SAMPLE_RATE = OPTIMAL_SAMPLE_RATE
+	if use_optimal_sample_rate:
+		current_sample_rate = optimal_sample_rate
 	else:
-		CURRENT_SAMPLE_RATE = 48000
-	print("Current sample rate: "+str(CURRENT_SAMPLE_RATE))
+		current_sample_rate = 48000
+	print("Current sample rate: %s" % current_sample_rate)
 
 
 # A network voice packet exists, process it
-func _play_Network_Voice(voice_data: Dictionary) -> void:
-	_process_Voice_Data(voice_data, "remote")
+func play_network_voice(voice_data: Dictionary) -> void:
+	process_voice_data(voice_data, "remote")
 
 
 # Works but has stuttering
-func _process_Voice_Data(voice_data: Dictionary, voice_source: String) -> void:
-	_get_Sample_Rate()
+func process_voice_data(voice_data: Dictionary, voice_source: String) -> void:
+	get_sample_rate()
 
-	var DECOMPRESSED_VOICE: Dictionary = Steam.decompressVoice(voice_data['buffer'], voice_data['written'], CURRENT_SAMPLE_RATE)
-	if DECOMPRESSED_VOICE['result'] == Steam.VOICE_RESULT_OK and DECOMPRESSED_VOICE['size'] > 0:
-		print("Decompressed voice: "+str(DECOMPRESSED_VOICE['size']))
+	var decompressed_voice: Dictionary = Steam.decompressVoice(voice_data['buffer'], voice_data['written'], current_sample_rate)
+	if decompressed_voice['result'] == Steam.VOICE_RESULT_OK and decompressed_voice['size'] > 0:
+		print("Decompressed voice: %s" % decompressed_voice['size'])
 		if voice_source == "local":
-			LOCAL_VOICE_BUFFER = DECOMPRESSED_VOICE['uncompressed']
-			LOCAL_VOICE_BUFFER.resize(DECOMPRESSED_VOICE['size'])
-			var LOCAL_AUDIO: AudioStreamSample = AudioStreamSample.new()
-			LOCAL_AUDIO.mix_rate = CURRENT_SAMPLE_RATE
-			LOCAL_AUDIO.data = LOCAL_VOICE_BUFFER
-			LOCAL_AUDIO.format = AudioStreamSample.FORMAT_16_BITS
-			$Frame/Main/Players/Local.stream = LOCAL_AUDIO
+			local_voice_buffer = decompressed_voice['uncompressed']
+			local_voice_buffer.resize(decompressed_voice['size'])
+			var local_audio: AudioStreamSample = AudioStreamSample.new()
+			local_audio.mix_rate = current_sample_rate
+			local_audio.data = local_voice_buffer
+			local_audio.format = AudioStreamSample.FORMAT_16_BITS
+			$Frame/Main/Players/Local.stream = local_audio
 			$Frame/Main/Players/Local.play()
 
 
 #################################################
 # HELPER FUNCTIONS
 #################################################
-func _on_Back_pressed() -> void:
-	Loading._load_Scene("main")
+func _on_back_pressed() -> void:
+	Loading.load_scene("main")

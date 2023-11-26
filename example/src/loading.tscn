@@ -425,6 +425,6 @@ anims/Preload = SubResource( 6 )
 "anims/Quit Show" = SubResource( 4 )
 anims/RESET = SubResource( 3 )
 
-[connection signal="pressed" from="Background/Options/Quit" to="." method="_on_Quit_pressed"]
-[connection signal="pressed" from="Background/Options/Resume" to="." method="_on_Resume_pressed"]
-[connection signal="animation_finished" from="Animator" to="." method="_on_Animator_Finished"]
+[connection signal="pressed" from="Background/Options/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Background/Options/Resume" to="." method="_on_resume_pressed"]
+[connection signal="animation_finished" from="Animator" to="." method="_on_animator_finished"]

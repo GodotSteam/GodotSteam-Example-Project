@@ -1,0 +1,176 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://src/examples/music.gd" type="Script" id=2]
+[ext_resource path="res://src/components/main-frame.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/components/main-output.tscn" type="PackedScene" id=4]
+[ext_resource path="res://data/themes/button-theme.tres" type="Theme" id=5]
+[ext_resource path="res://data/fonts/descriptions.tres" type="DynamicFont" id=6]
+[ext_resource path="res://data/images/icons-song-pause.png" type="Texture" id=7]
+[ext_resource path="res://data/images/icons-song-prev.png" type="Texture" id=8]
+[ext_resource path="res://data/images/icons-song-play.png" type="Texture" id=9]
+[ext_resource path="res://data/images/icons-song-next.png" type="Texture" id=10]
+[ext_resource path="res://data/themes/horizontal-slider-theme.tres" type="Theme" id=14]
+
+[node name="Music" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Frame" parent="." instance=ExtResource( 3 )]
+margin_bottom = 695.0
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Music Example"
+
+[node name="Message" type="Label" parent="Frame/Main" index="1"]
+margin_top = 73.0
+margin_right = 905.0
+margin_bottom = 196.0
+custom_fonts/font = ExtResource( 6 )
+text = "The Music system used to allow you to import all your locally stored music into Steam and control it through this interface. Very useful playing your own stuff in games. However, that was mostly removed in the newer Steam client and now only works with official soundtracks for games you own.
+
+As you can see, it is very basic and there is no way to select which soundtrack to play through this interface. That must be selected manually in the Steam client itself, for some odd reason."
+autowrap = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Interface" type="HBoxContainer" parent="Frame/Main" index="2"]
+margin_top = 221.0
+margin_right = 905.0
+margin_bottom = 251.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Prev" type="Button" parent="Frame/Main/Interface"]
+margin_right = 45.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 30 )
+theme = ExtResource( 5 )
+icon = ExtResource( 8 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Pause" type="Button" parent="Frame/Main/Interface"]
+margin_left = 60.0
+margin_right = 105.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 30 )
+theme = ExtResource( 5 )
+icon = ExtResource( 7 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Play" type="Button" parent="Frame/Main/Interface"]
+margin_left = 120.0
+margin_right = 165.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 30 )
+theme = ExtResource( 5 )
+icon = ExtResource( 9 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Next" type="Button" parent="Frame/Main/Interface"]
+margin_left = 180.0
+margin_right = 225.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 30 )
+theme = ExtResource( 5 )
+icon = ExtResource( 10 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Volume" type="HSlider" parent="Frame/Main/Interface"]
+margin_left = 240.0
+margin_top = 9.0
+margin_right = 905.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource( 14 )
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Output" parent="Frame/Main" index="3" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+margin_top = 276.0
+margin_bottom = 670.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="0"]
+text = "Check-up Functions"
+
+[node name="GetVolume" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+margin_top = 32.0
+margin_right = 270.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 100, 30 )
+theme = ExtResource( 5 )
+text = "Get Volume"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Playback" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+margin_top = 72.0
+margin_right = 270.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 200, 30 )
+theme = ExtResource( 5 )
+text = "Get Playback Status"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="3"]
+margin_top = 112.0
+margin_right = 270.0
+margin_bottom = 126.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="4"]
+margin_top = 136.0
+margin_right = 270.0
+margin_bottom = 164.0
+theme = ExtResource( 5 )
+text = "Back"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="pressed" from="Frame/Main/Interface/Prev" to="." method="_on_music_play_prev"]
+[connection signal="pressed" from="Frame/Main/Interface/Pause" to="." method="_on_music_pause"]
+[connection signal="pressed" from="Frame/Main/Interface/Play" to="." method="_on_music_play"]
+[connection signal="pressed" from="Frame/Main/Interface/Next" to="." method="_on_music_play_next"]
+[connection signal="drag_ended" from="Frame/Main/Interface/Volume" to="." method="_on_volume_drag_ended"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetVolume" to="." method="_on_music_get_volume"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Playback" to="." method="_on_get_playback_status"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_back_pressed"]
+
+[editable path="Frame"]

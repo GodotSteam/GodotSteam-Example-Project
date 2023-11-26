@@ -290,11 +290,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[connection signal="button_down" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_ToTalk_button_down"]
-[connection signal="button_up" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_ToTalk_button_up"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/ToggleVoice" to="." method="_on_ToggleVoice_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Loopback" to="." method="_on_Loopback_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Optimal" to="." method="_on_Optimal_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+[connection signal="button_down" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_to_talk_button_down"]
+[connection signal="button_up" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_to_talk_button_up"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/ToggleVoice" to="." method="_on_toggle_voice_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Loopback" to="." method="_on_loopback_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Optimal" to="." method="_on_optimal_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_back_pressed"]
 
 [editable path="Frame"]

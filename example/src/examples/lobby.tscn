@@ -7,13 +7,7 @@
 [ext_resource path="res://data/fonts/sub-titles.tres" type="DynamicFont" id=5]
 [ext_resource path="res://data/fonts/output-text.tres" type="DynamicFont" id=6]
 [ext_resource path="res://src/components/main-frame.tscn" type="PackedScene" id=7]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+[ext_resource path="res://src/components/main-output.tscn" type="PackedScene" id=8]
 
 [sub_resource type="StyleBoxFlat" id=2]
 content_margin_left = 10.0
@@ -81,6 +75,7 @@ margin_right = 580.0
 margin_bottom = 436.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 25
 __meta__ = {
 "_edit_lock_": true
 }
@@ -92,20 +87,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Output Title" type="Label" parent="Frame/Main/Displays/Outputs/Titles"]
-margin_right = 288.0
-margin_bottom = 19.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/font = ExtResource( 5 )
-text = "Output Display"
-valign = 1
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="Lobby" type="Label" parent="Frame/Main/Displays/Outputs/Titles"]
-margin_left = 292.0
 margin_right = 580.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
@@ -117,19 +99,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Output" type="RichTextLabel" parent="Frame/Main/Displays/Outputs"]
-margin_top = 23.0
+[node name="Output" parent="Frame/Main/Displays/Outputs" instance=ExtResource( 8 )]
+unique_name_in_owner = true
+margin_top = 44.0
 margin_right = 580.0
 margin_bottom = 436.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/shadow_as_outline = 50
-custom_fonts/normal_font = ExtResource( 6 )
-custom_styles/normal = SubResource( 1 )
-scroll_following = true
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="PlayerList" type="VBoxContainer" parent="Frame/Main/Displays"]
 margin_left = 605.0
@@ -378,14 +354,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Frame/Main/Messaging/Send" to="." method="_on_Send_Chat_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/CreateLobby" to="." method="_on_Create_Lobby_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/OpenLobby List" to="." method="_on_Open_Lobby_List_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLobbyData" to="." method="_on_Get_Lobby_Data_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Leave" to="." method="_on_Leave_Lobby_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/SendPacket" to="." method="_on_Send_Packet_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
-[connection signal="pressed" from="Lobbies/Close Lobbies" to="." method="_on_Close_Lobbies_pressed"]
-[connection signal="pressed" from="Lobbies/Refresh" to="." method="_on_Refresh_pressed"]
+[connection signal="text_changed" from="Frame/Main/Messaging/Chat" to="." method="_on_chat_text_changed"]
+[connection signal="text_entered" from="Frame/Main/Messaging/Chat" to="." method="_on_chat_text_entered"]
+[connection signal="pressed" from="Frame/Main/Messaging/Send" to="." method="_on_send_chat_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/CreateLobby" to="." method="_on_create_lobby_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/OpenLobby List" to="." method="_on_open_lobby_list_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLobbyData" to="." method="_on_get_lobby_data_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Leave" to="." method="_on_leave_lobby_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/SendPacket" to="." method="_on_send_packet_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Lobbies/Close Lobbies" to="." method="_on_close_lobbies_pressed"]
+[connection signal="pressed" from="Lobbies/Refresh" to="." method="_on_refresh_pressed"]
 
 [editable path="Frame"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/main.gd" type="Script" id=1]
 [ext_resource path="res://data/fonts/main-titles.tres" type="DynamicFont" id=2]
@@ -8,6 +8,13 @@
 [ext_resource path="res://data/fonts/list-titles.tres" type="DynamicFont" id=6]
 [ext_resource path="res://data/themes/button-theme.tres" type="Theme" id=7]
 [ext_resource path="res://data/images/inverted-logo.png" type="Texture" id=8]
+[ext_resource path="res://data/themes/scrollbar-theme.tres" type="Theme" id=9]
+[ext_resource path="res://data/images/icons-github.png" type="Texture" id=10]
+[ext_resource path="res://data/images/icons-web.png" type="Texture" id=11]
+[ext_resource path="res://data/images/icons-discord.png" type="Texture" id=12]
+[ext_resource path="res://data/images/icons-steam.png" type="Texture" id=13]
+[ext_resource path="res://data/themes/main-panel-theme.tres" type="Theme" id=14]
+[ext_resource path="res://data/fonts/sub-titles.tres" type="DynamicFont" id=15]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
@@ -15,6 +22,7 @@ bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
 [node name="Main" type="Panel"]
 margin_right = 1280.0
 margin_bottom = 720.0
+theme = ExtResource( 14 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -94,6 +102,170 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Links" type="VBoxContainer" parent="Frame/Main"]
+margin_top = 441.0
+margin_right = 905.0
+margin_bottom = 670.0
+size_flags_vertical = 10
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Documentation" type="Label" parent="Frame/Main/Links"]
+margin_right = 905.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 15 )
+text = "Documentation"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DocLinks" type="HBoxContainer" parent="Frame/Main/Links"]
+margin_top = 23.0
+margin_right = 515.0
+margin_bottom = 63.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+custom_constants/separation = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Website" type="Button" parent="Frame/Main/Links/DocLinks"]
+margin_right = 250.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 30 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+text = "  GodotSteam Docs"
+icon = ExtResource( 11 )
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Steam" type="Button" parent="Frame/Main/Links/DocLinks"]
+margin_left = 265.0
+margin_right = 515.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 30 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+text = "  Steamworks SDK Docs"
+icon = ExtResource( 13 )
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Repos" type="Label" parent="Frame/Main/Links"]
+margin_top = 67.0
+margin_right = 905.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 0, 35 )
+custom_fonts/font = ExtResource( 15 )
+text = "Repositories"
+valign = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RepoLinks" type="HBoxContainer" parent="Frame/Main/Links"]
+margin_top = 106.0
+margin_right = 515.0
+margin_bottom = 146.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+custom_constants/separation = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Github" type="Button" parent="Frame/Main/Links/RepoLinks"]
+margin_right = 250.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 30 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+text = "  GodotSteam Repo"
+icon = ExtResource( 10 )
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Examples" type="Button" parent="Frame/Main/Links/RepoLinks"]
+margin_left = 265.0
+margin_right = 515.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 30 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+text = "  GodotSteam Examples Repo"
+icon = ExtResource( 10 )
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Contact" type="Label" parent="Frame/Main/Links"]
+margin_top = 150.0
+margin_right = 905.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 0, 35 )
+custom_fonts/font = ExtResource( 15 )
+text = "Support / Contact"
+valign = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ContactLinks" type="HBoxContainer" parent="Frame/Main/Links"]
+margin_top = 189.0
+margin_right = 515.0
+margin_bottom = 229.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+custom_constants/separation = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Discord" type="Button" parent="Frame/Main/Links/ContactLinks"]
+margin_right = 250.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 30 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 7 )
+text = "  Discord"
+icon = ExtResource( 12 )
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Email" type="Button" parent="Frame/Main/Links/ContactLinks"]
+margin_left = 265.0
+margin_right = 515.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 0 )
+theme = ExtResource( 7 )
+text = "  E-mail"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="Sidebar" type="VBoxContainer" parent="Frame"]
 margin_left = 930.0
 margin_right = 1230.0
@@ -117,30 +289,51 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="List" type="VBoxContainer" parent="Frame/Sidebar/Examples"]
+[node name="Container" type="VBoxContainer" parent="Frame/Sidebar/Examples"]
 margin_left = 15.0
 margin_top = 15.0
 margin_right = 285.0
-margin_bottom = 395.0
-custom_constants/separation = 10
+margin_bottom = 490.0
+rect_min_size = Vector2( 270, 475 )
+custom_constants/separation = 15
 __meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
+"_edit_lock_": true
 }
 
-[node name="Title" type="Label" parent="Frame/Sidebar/Examples/List"]
+[node name="Title" type="Label" parent="Frame/Sidebar/Examples/Container"]
 margin_right = 270.0
-margin_bottom = 22.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
 custom_fonts/font = ExtResource( 6 )
 text = "Available Examples:"
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Authentication" type="Button" parent="Frame/Sidebar/Examples/List"]
-margin_top = 32.0
+[node name="Scroll" type="ScrollContainer" parent="Frame/Sidebar/Examples/Container"]
+margin_top = 40.0
 margin_right = 270.0
-margin_bottom = 60.0
+margin_bottom = 432.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="List" type="VBoxContainer" parent="Frame/Sidebar/Examples/Container/Scroll"]
+margin_right = 245.0
+margin_bottom = 478.0
+rect_min_size = Vector2( 245, 0 )
+custom_constants/separation = 10
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Authentication" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_right = 245.0
+margin_bottom = 28.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 7 )
 custom_fonts/font = ExtResource( 5 )
@@ -150,10 +343,22 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Avatars" type="Button" parent="Frame/Sidebar/Examples/List"]
-margin_top = 70.0
-margin_right = 270.0
-margin_bottom = 98.0
+[node name="Automatchmaking" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 38.0
+margin_right = 245.0
+margin_bottom = 66.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+text = "Auto-Matchmaking"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Avatars" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 76.0
+margin_right = 245.0
+margin_bottom = 104.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 7 )
 custom_colors/font_color_disabled = Color( 0.258824, 0.258824, 0.258824, 1 )
@@ -167,10 +372,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Inputs" type="Button" parent="Frame/Sidebar/Examples/List"]
-margin_top = 108.0
-margin_right = 270.0
-margin_bottom = 136.0
+[node name="Inputs" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 114.0
+margin_right = 245.0
+margin_bottom = 142.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 7 )
 custom_fonts/font = ExtResource( 5 )
@@ -180,10 +385,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Leaderboards" type="Button" parent="Frame/Sidebar/Examples/List"]
-margin_top = 146.0
-margin_right = 270.0
-margin_bottom = 174.0
+[node name="Leaderboards" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 152.0
+margin_right = 245.0
+margin_bottom = 180.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 7 )
 custom_fonts/font = ExtResource( 5 )
@@ -193,10 +398,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Lobby" type="Button" parent="Frame/Sidebar/Examples/List"]
-margin_top = 184.0
-margin_right = 270.0
-margin_bottom = 212.0
+[node name="Lobby" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 190.0
+margin_right = 245.0
+margin_bottom = 218.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 7 )
 custom_fonts/font = ExtResource( 5 )
@@ -206,10 +411,58 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="StatsAchievements" type="Button" parent="Frame/Sidebar/Examples/List"]
-margin_top = 222.0
-margin_right = 270.0
-margin_bottom = 250.0
+[node name="Music" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 228.0
+margin_right = 245.0
+margin_bottom = 256.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+text = "Music"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Music Remote" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 266.0
+margin_right = 245.0
+margin_bottom = 294.0
+theme = ExtResource( 7 )
+text = "Music Remote"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="NetworkingMessages" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 304.0
+margin_right = 245.0
+margin_bottom = 332.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+text = "Networking Messages (P2P)"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RichPresence" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 342.0
+margin_right = 245.0
+margin_bottom = 370.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 7 )
+text = "Rich Presence"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StatsAchievements" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 380.0
+margin_right = 245.0
+margin_bottom = 408.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 7 )
 custom_fonts/font = ExtResource( 5 )
@@ -219,10 +472,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Voice" type="Button" parent="Frame/Sidebar/Examples/List"]
-margin_top = 260.0
-margin_right = 270.0
-margin_bottom = 288.0
+[node name="Voice" type="Button" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 418.0
+margin_right = 245.0
+margin_bottom = 446.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 7 )
 custom_fonts/font = ExtResource( 5 )
@@ -232,19 +485,19 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Spacer" type="Label" parent="Frame/Sidebar/Examples/List"]
-margin_top = 298.0
-margin_right = 270.0
-margin_bottom = 320.0
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Examples/Container/Scroll/List"]
+margin_top = 456.0
+margin_right = 245.0
+margin_bottom = 478.0
 custom_fonts/font = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Exit" type="Button" parent="Frame/Sidebar/Examples/List"]
-margin_top = 330.0
+[node name="Exit" type="Button" parent="Frame/Sidebar/Examples/Container"]
+margin_top = 447.0
 margin_right = 270.0
-margin_bottom = 358.0
+margin_bottom = 475.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 7 )
 custom_fonts/font = ExtResource( 5 )
@@ -254,11 +507,22 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Authentication" to="." method="_start_Example" binds= [ "authentication" ]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Avatars" to="." method="_start_Example" binds= [ "avatars" ]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Inputs" to="." method="_start_Example" binds= [ "inputs" ]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Leaderboards" to="." method="_start_Example" binds= [ "leaderboards" ]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Lobby" to="." method="_start_Example" binds= [ "lobby" ]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/StatsAchievements" to="." method="_start_Example" binds= [ "stats-achieves" ]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Voice" to="." method="_start_Example" binds= [ "voice" ]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Frame/Main/Links/DocLinks/Website" to="." method="_on_open_url_pressed" binds= [ "docs" ]]
+[connection signal="pressed" from="Frame/Main/Links/DocLinks/Steam" to="." method="_on_open_url_pressed" binds= [ "steam" ]]
+[connection signal="pressed" from="Frame/Main/Links/RepoLinks/Github" to="." method="_on_open_url_pressed" binds= [ "github" ]]
+[connection signal="pressed" from="Frame/Main/Links/RepoLinks/Examples" to="." method="_on_open_url_pressed" binds= [ "examples" ]]
+[connection signal="pressed" from="Frame/Main/Links/ContactLinks/Discord" to="." method="_on_open_url_pressed" binds= [ "discord" ]]
+[connection signal="pressed" from="Frame/Main/Links/ContactLinks/Email" to="." method="_on_open_url_pressed" binds= [ "email" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Authentication" to="." method="start_example" binds= [ "authentication" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Automatchmaking" to="." method="start_example" binds= [ "automatchmaking" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Avatars" to="." method="start_example" binds= [ "avatars" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Inputs" to="." method="start_example" binds= [ "inputs" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Leaderboards" to="." method="start_example" binds= [ "leaderboards" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Lobby" to="." method="start_example" binds= [ "lobby" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Music" to="." method="start_example" binds= [ "music" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Music Remote" to="." method="start_example" binds= [ "music-remote" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/NetworkingMessages" to="." method="start_example" binds= [ "networking-messages" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/RichPresence" to="." method="start_example" binds= [ "rich-presence" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/StatsAchievements" to="." method="start_example" binds= [ "stats-achieves" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Scroll/List/Voice" to="." method="start_example" binds= [ "voice" ]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/Container/Exit" to="." method="_on_exit_pressed"]

@@ -2,131 +2,131 @@ extends CanvasLayer
 #################################################
 # LOADING SCENE
 #################################################
-var CURRENT_SCENE: Object
-var IS_IN_MAIN: bool = true
-var IS_LOADING: bool = false
-var IS_QUIT_OPEN: bool = false
-var LOADER: ResourceInteractiveLoader
-var SCENE_PATH: String
-var TIME_MAX: int = 100
-var WAIT_FRAMES: int = 0
+var current_scene: Object
+var is_in_main: bool = true
+var is_loading: bool = false
+var is_quit_open: bool = false
+var loader: ResourceInteractiveLoader
+var scene_path: String
+var time_max: int = 100
+var wait_frames: int = 0
 
 
 func _ready() -> void:
-	var ROOT: Object = get_tree().get_root()
-	CURRENT_SCENE = ROOT.get_child(ROOT.get_child_count() -1)
+	var the_root: Object = get_tree().get_root()
+	current_scene = the_root.get_child(the_root.get_child_count() -1)
 	set_process_input(true)
 
 
 func _process(_time: float) -> void:
-	if LOADER == null:
+	if loader == null:
 		set_process(false)
 		return
 
-	if WAIT_FRAMES > 0:
-		WAIT_FRAMES -= 1
+	if wait_frames > 0:
+		wait_frames -= 1
 		return
 
-	var TICKS: float = OS.get_ticks_msec()
-	while OS.get_ticks_msec() < TICKS + TIME_MAX:
-		var ERR: int = LOADER.poll()
-		if ERR == ERR_FILE_EOF:
-			_loading_Finished(ERR)
+	var ticks: float = OS.get_ticks_msec()
+	while OS.get_ticks_msec() < ticks + time_max:
+		var this_status: int = loader.poll()
+		if this_status == ERR_FILE_EOF:
+			loading_finished(this_status)
 			break
-		elif ERR == OK:
-			_update_Progress()
+		elif this_status == OK:
+			update_progress()
 		else:
-			print("[LOADER] Loading next scene failed, stop game: "+str(ERR))
-			LOADER = null
+			print("Loading next scene failed, stop game: %s" % this_status)
+			loader = null
 			break
 
 
-func _loading_Finished(this_status: int) -> void:
-	print("Loading complete, switch scenes: "+str(this_status))
-	var RESOURCE: Object = LOADER.get_resource()
-	LOADER = null
-	_set_New_Scene(RESOURCE)
+func loading_finished(this_status: int) -> void:
+	print("Loading complete, switch scenes: %s" % this_status)
+	var this_resource: Object = loader.get_resource()
+	loader = null
+	set_new_scene(this_resource)
 
 
 #################################################
 # SCENE LOADING
 #################################################
-func _deferred_Load_Scene(path: String) -> void:
-	if path == "main":
-		IS_IN_MAIN = true
-		SCENE_PATH = "res://src/main.tscn"
+func load_scene(this_path: String) -> void:
+	if is_loading == false:
+		is_loading = true
+		call_deferred("load_scene_deferred", this_path)
 	else:
-		IS_IN_MAIN = false
-		SCENE_PATH = "res://src/examples/"+str(path)+".tscn"
-	LOADER = ResourceLoader.load_interactive(SCENE_PATH)
+		print("Loading %s example was called again while already loading it" % this_path)
 
-	if LOADER == null:
+
+func load_scene_deferred(this_path: String) -> void:
+	if this_path == "main":
+		is_in_main = true
+		scene_path = "res://src/main.tscn"
+	else:
+		is_in_main = false
+		scene_path = "res://src/examples/%s.tscn" % this_path
+	loader = ResourceLoader.load_interactive(scene_path)
+
+	if loader == null:
 		print("Scene to load is null")
 		return
 	$Animator.play("Preload")
 
 
-func _load_Scene(path: String) -> void:
-	if IS_LOADING == false:
-		IS_LOADING = true
-		call_deferred("_deferred_Load_Scene", path)
-	else:
-		print("Loading "+str(path)+" example was called again while already loading it")
-
-
-func _set_New_Scene(scene: Object) -> void:
-	print("Attempting to load: "+str(scene))
-	CURRENT_SCENE.free()
-	CURRENT_SCENE = scene.instance()
-	get_node("/root").add_child(CURRENT_SCENE)
-	get_tree().set_current_scene(CURRENT_SCENE)
+func set_new_scene(scene: Object) -> void:
+	print("Attempting to load: %s" % scene)
+	current_scene.free()
+	current_scene = scene.instance()
+	get_node("/root").add_child(current_scene)
+	get_tree().set_current_scene(current_scene)
 	$Animator.play("Postload")
-	IS_LOADING = false
+	is_loading = false
 
 
-func _update_Progress() -> void:
-	var PROGRESS: float = (float(LOADER.get_stage()) / LOADER.get_stage_count())
-	var LENGTH: float = $Animator.get_current_animation_length()
-	$Animator.seek(PROGRESS * LENGTH, true)
+func update_progress() -> void:
+	var animation_progress: float = (float(loader.get_stage()) / loader.get_stage_count())
+	var animation_length: float = $Animator.get_current_animation_length()
+	$Animator.seek(animation_progress * animation_length, true)
 
 
 #################################################
 # QUIT CONFIRMATION FUNCTIONS
 #################################################
-func _show_Quit_Confirm() -> void:
-	IS_QUIT_OPEN = true
-	$Animator.play("Quit Show")
-
-
-func _on_Resume_pressed() -> void:
-	$Animator.play("Quit Hide")
-
-
-func _on_Quit_pressed() -> void:
+func _on_quit_pressed() -> void:
 	$Animator.play("Quit Hide")
 	get_tree().quit()
+
+
+func _on_resume_pressed() -> void:
+	$Animator.play("Quit Hide")
+
+
+func show_quit_confirm() -> void:
+	is_quit_open = true
+	$Animator.play("Quit Show")
 
 
 ##################################################
 # ANIMATION FUNCTIONS
 ##################################################
-func _on_Animator_Finished(this_animation: String) -> void:
+func _on_animator_finished(this_animation: String) -> void:
 	match this_animation:
 		"Preload":
 			set_process(true)
 			$Animator.play("Loading")
-			WAIT_FRAMES = 1
-		"Quit Show": IS_QUIT_OPEN = true
-		"Quit Hide": IS_QUIT_OPEN = false
+			wait_frames = 1
+		"Quit Show": is_quit_open = true
+		"Quit Hide": is_quit_open = false
 
 
 ##################################################
 # INPUT HANDLING
 ##################################################
-func _input(event: InputEvent) -> void:
-	if event.is_pressed() and !event.is_echo():
-		if event.is_action("ui_cancel"):
-			if IS_QUIT_OPEN:
-				_on_Resume_pressed()
+func _input(this_event: InputEvent) -> void:
+	if this_event.is_pressed() and not this_event.is_echo():
+		if this_event.is_action("ui_cancel"):
+			if is_quit_open:
+				_on_resume_pressed()
 			else:
-				_show_Quit_Confirm()
+				show_quit_confirm()

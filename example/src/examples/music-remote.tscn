@@ -1,0 +1,385 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://data/themes/button-theme.tres" type="Theme" id=1]
+[ext_resource path="res://data/fonts/descriptions.tres" type="DynamicFont" id=2]
+[ext_resource path="res://data/fonts/list-titles.tres" type="DynamicFont" id=3]
+[ext_resource path="res://data/themes/horizontal-slider-theme.tres" type="Theme" id=4]
+[ext_resource path="res://src/examples/music-remote.gd" type="Script" id=5]
+[ext_resource path="res://data/images/icons-song-pause.png" type="Texture" id=6]
+[ext_resource path="res://data/images/icons-loop.png" type="Texture" id=8]
+[ext_resource path="res://data/images/icons-shuffle.png" type="Texture" id=9]
+[ext_resource path="res://data/images/icons-song-prev.png" type="Texture" id=10]
+[ext_resource path="res://data/images/icons-song-play.png" type="Texture" id=11]
+[ext_resource path="res://src/components/main-frame.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/components/main-output.tscn" type="PackedScene" id=13]
+[ext_resource path="res://data/themes/lineedit-theme.tres" type="Theme" id=14]
+[ext_resource path="res://data/images/icons-song-next.png" type="Texture" id=15]
+
+[node name="Music" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Frame" parent="." instance=ExtResource( 12 )]
+margin_bottom = 695.0
+
+[node name="Title" parent="Frame/Main/Topbar" index="1"]
+text = "Music Remote Example"
+
+[node name="Message" type="Label" parent="Frame/Main" index="1"]
+margin_top = 73.0
+margin_right = 905.0
+margin_bottom = 133.0
+custom_fonts/font = ExtResource( 2 )
+text = "The Music system used to allow you to import all your locally stored music into Steam and control it through this interface. Very useful playing your own stuff in games. However, that was mostly removed in the newer Steam client and now only works with official soundtracks for games you own."
+autowrap = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Interface" type="HBoxContainer" parent="Frame/Main" index="2"]
+margin_top = 158.0
+margin_right = 905.0
+margin_bottom = 188.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shuffled" type="Button" parent="Frame/Main/Interface"]
+margin_right = 45.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 0 )
+theme = ExtResource( 1 )
+toggle_mode = true
+icon = ExtResource( 9 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Prev" type="Button" parent="Frame/Main/Interface"]
+margin_left = 60.0
+margin_right = 105.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 30 )
+theme = ExtResource( 1 )
+icon = ExtResource( 10 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Pause" type="Button" parent="Frame/Main/Interface"]
+margin_left = 120.0
+margin_right = 165.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 30 )
+theme = ExtResource( 1 )
+icon = ExtResource( 6 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Play" type="Button" parent="Frame/Main/Interface"]
+margin_left = 180.0
+margin_right = 225.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 30 )
+theme = ExtResource( 1 )
+icon = ExtResource( 11 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Next" type="Button" parent="Frame/Main/Interface"]
+margin_left = 240.0
+margin_right = 285.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 30 )
+theme = ExtResource( 1 )
+icon = ExtResource( 15 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Looped" type="Button" parent="Frame/Main/Interface"]
+margin_left = 300.0
+margin_right = 345.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 45, 0 )
+theme = ExtResource( 1 )
+toggle_mode = true
+icon = ExtResource( 8 )
+expand_icon = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Volume" type="HSlider" parent="Frame/Main/Interface"]
+margin_left = 360.0
+margin_top = 9.0
+margin_right = 905.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource( 4 )
+max_value = 1.0
+step = 0.05
+value = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Register" type="HBoxContainer" parent="Frame/Main" index="3"]
+margin_top = 213.0
+margin_right = 905.0
+margin_bottom = 241.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RemoteName" type="LineEdit" parent="Frame/Main/Register"]
+margin_right = 200.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 200, 0 )
+theme = ExtResource( 14 )
+placeholder_text = "Enter remote music name"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RegisterMusicRemote" type="Button" parent="Frame/Main/Register"]
+margin_left = 215.0
+margin_right = 450.0
+margin_bottom = 28.0
+theme = ExtResource( 1 )
+text = "Register Music Remote Session"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Deregister" type="Button" parent="Frame/Main/Register"]
+margin_left = 465.0
+margin_right = 713.0
+margin_bottom = 28.0
+theme = ExtResource( 1 )
+text = "Deregister Music Remote Session"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Display" type="HBoxContainer" parent="Frame/Main" index="4"]
+margin_top = 266.0
+margin_right = 905.0
+margin_bottom = 294.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DisplayName" type="LineEdit" parent="Frame/Main/Display"]
+margin_right = 200.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 200, 0 )
+theme = ExtResource( 14 )
+placeholder_text = "Enter display name"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SetDisplayName" type="Button" parent="Frame/Main/Display"]
+margin_left = 215.0
+margin_right = 355.0
+margin_bottom = 28.0
+theme = ExtResource( 1 )
+text = "Set Display Name"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Output" parent="Frame/Main" index="5" instance=ExtResource( 13 )]
+unique_name_in_owner = true
+margin_top = 319.0
+margin_bottom = 670.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Checks" type="Label" parent="Frame/Sidebar/Options/List" index="0"]
+margin_right = 270.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "Checking Functions"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CurrentMusicRemote" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
+margin_top = 32.0
+margin_right = 270.0
+margin_bottom = 60.0
+theme = ExtResource( 1 )
+text = "Is Music Remote?"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="GetVolume" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+margin_top = 70.0
+margin_right = 270.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 30 )
+theme = ExtResource( 1 )
+text = "Get Volume"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Playback" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+margin_top = 110.0
+margin_right = 270.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 200, 30 )
+theme = ExtResource( 1 )
+text = "Get Playback Status"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" parent="Frame/Sidebar/Options/List" index="4"]
+margin_top = 150.0
+margin_bottom = 172.0
+text = "Interface Controls"
+
+[node name="Looped" type="Button" parent="Frame/Sidebar/Options/List" index="5"]
+margin_top = 182.0
+margin_right = 270.0
+margin_bottom = 210.0
+theme = ExtResource( 1 )
+toggle_mode = true
+text = "Enable Looped"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Playlists" type="Button" parent="Frame/Sidebar/Options/List" index="6"]
+margin_top = 220.0
+margin_right = 270.0
+margin_bottom = 248.0
+theme = ExtResource( 1 )
+toggle_mode = true
+text = "Enable Playlists"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Next" type="Button" parent="Frame/Sidebar/Options/List" index="7"]
+margin_top = 258.0
+margin_right = 270.0
+margin_bottom = 286.0
+theme = ExtResource( 1 )
+toggle_mode = true
+text = "Enable Next"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Previous" type="Button" parent="Frame/Sidebar/Options/List" index="8"]
+margin_top = 296.0
+margin_right = 270.0
+margin_bottom = 324.0
+theme = ExtResource( 1 )
+toggle_mode = true
+text = "Enable Previous"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Queue" type="Button" parent="Frame/Sidebar/Options/List" index="9"]
+margin_top = 334.0
+margin_right = 270.0
+margin_bottom = 362.0
+theme = ExtResource( 1 )
+toggle_mode = true
+text = "Enable Queue"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Shuffled" type="Button" parent="Frame/Sidebar/Options/List" index="10"]
+margin_top = 372.0
+margin_right = 270.0
+margin_bottom = 400.0
+theme = ExtResource( 1 )
+toggle_mode = true
+text = "Enable Shuffled"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="11"]
+margin_top = 410.0
+margin_right = 270.0
+margin_bottom = 424.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="12"]
+margin_top = 434.0
+margin_right = 270.0
+margin_bottom = 462.0
+theme = ExtResource( 1 )
+text = "Back"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[connection signal="toggled" from="Frame/Main/Interface/Shuffled" to="." method="_set_music_shuffled"]
+[connection signal="pressed" from="Frame/Main/Interface/Prev" to="." method="_on_music_play_prev"]
+[connection signal="pressed" from="Frame/Main/Interface/Pause" to="." method="_on_music_pause"]
+[connection signal="pressed" from="Frame/Main/Interface/Play" to="." method="_on_music_play"]
+[connection signal="pressed" from="Frame/Main/Interface/Next" to="." method="_on_music_play_next"]
+[connection signal="toggled" from="Frame/Main/Interface/Looped" to="." method="_set_music_looped"]
+[connection signal="drag_ended" from="Frame/Main/Interface/Volume" to="." method="_on_volume_drag_ended"]
+[connection signal="text_changed" from="Frame/Main/Register/RemoteName" to="." method="_on_register_steam_music_remote_text_changed"]
+[connection signal="text_entered" from="Frame/Main/Register/RemoteName" to="." method="_on_register_steam_music_remote_text_entered"]
+[connection signal="pressed" from="Frame/Main/Register/RegisterMusicRemote" to="." method="_on_register_steam_music_remote"]
+[connection signal="pressed" from="Frame/Main/Register/Deregister" to="." method="_on_deregister_steam_music_remote"]
+[connection signal="text_changed" from="Frame/Main/Display/DisplayName" to="." method="_on_set_display_name_text_changed"]
+[connection signal="text_entered" from="Frame/Main/Display/DisplayName" to="." method="_on_set_display_name_text_entered"]
+[connection signal="pressed" from="Frame/Main/Display/SetDisplayName" to="." method="_on_set_display_name_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/CurrentMusicRemote" to="." method="_on_is_current_music_remote"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetVolume" to="." method="_on_music_get_volume"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Playback" to="." method="_on_get_playback_status"]
+[connection signal="toggled" from="Frame/Sidebar/Options/List/Looped" to="." method="_on_enable_looped"]
+[connection signal="toggled" from="Frame/Sidebar/Options/List/Playlists" to="." method="_on_enable_playlists"]
+[connection signal="toggled" from="Frame/Sidebar/Options/List/Next" to="." method="_on_enable_play_next"]
+[connection signal="toggled" from="Frame/Sidebar/Options/List/Previous" to="." method="_on_enable_play_previous"]
+[connection signal="toggled" from="Frame/Sidebar/Options/List/Queue" to="." method="_on_enable_queue"]
+[connection signal="toggled" from="Frame/Sidebar/Options/List/Shuffled" to="." method="_on_enable_shuffled"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_back_pressed"]
+
+[editable path="Frame"]

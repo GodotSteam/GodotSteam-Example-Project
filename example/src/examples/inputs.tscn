@@ -1,19 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/examples/inputs.gd" type="Script" id=1]
 [ext_resource path="res://data/themes/button-theme.tres" type="Theme" id=2]
-[ext_resource path="res://data/fonts/list-titles.tres" type="DynamicFont" id=3]
 [ext_resource path="res://data/fonts/descriptions.tres" type="DynamicFont" id=4]
-[ext_resource path="res://data/fonts/sub-titles.tres" type="DynamicFont" id=5]
-[ext_resource path="res://data/fonts/output-text.tres" type="DynamicFont" id=6]
-[ext_resource path="res://src/components/main-frame.tscn" type="PackedScene" id=7]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+[ext_resource path="res://src/components/main-output.tscn" type="PackedScene" id=5]
+[ext_resource path="res://data/fonts/sub-titles.tres" type="DynamicFont" id=6]
+[ext_resource path="res://data/themes/label-theme.tres" type="Theme" id=8]
+[ext_resource path="res://src/components/main-scrollable-frame.tscn" type="PackedScene" id=10]
 
 [node name="Inputs" type="Panel"]
 rect_min_size = Vector2( 1280, 720 )
@@ -22,7 +15,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Frame" parent="." instance=ExtResource( 7 )]
+[node name="Frame" parent="." instance=ExtResource( 10 )]
 
 [node name="Title" parent="Frame/Main/Topbar" index="1"]
 text = "Inputs Example (WIP)"
@@ -32,56 +25,120 @@ margin_top = 73.0
 margin_right = 905.0
 margin_bottom = 112.0
 custom_fonts/font = ExtResource( 4 )
-text = "The Input class should be able to handle all types of controllers.  This example is currently a little wonky and may not work as intended."
+text = "The Input class should be able to handle all types of controllers.  Godot will immediately understand connected controllers but Steam will take a second to catch up.  This tutorial is a work-in-progress."
 autowrap = true
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Output Title" type="Label" parent="Frame/Main" index="2"]
+[node name="Displays" type="HBoxContainer" parent="Frame/Main" index="2"]
 margin_top = 137.0
-margin_right = 905.0
-margin_bottom = 156.0
-custom_fonts/font = ExtResource( 5 )
-text = "Input Output"
-autowrap = true
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Output" type="RichTextLabel" parent="Frame/Main" index="3"]
-margin_top = 181.0
 margin_right = 905.0
 margin_bottom = 670.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/normal_font = ExtResource( 6 )
-custom_styles/normal = SubResource( 1 )
-scroll_following = true
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Init" type="Button" parent="Frame/Sidebar/Options/List" index="1"]
-margin_top = 32.0
-margin_right = 270.0
-margin_bottom = 60.0
-mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
-text = "Initialize Inputs"
-align = 0
+custom_constants/separation = 25
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Shutdown" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
+[node name="Output" parent="Frame/Main/Displays" instance=ExtResource( 5 )]
+unique_name_in_owner = true
+margin_top = 0.0
+margin_right = 580.0
+margin_bottom = 533.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Controllers" type="VBoxContainer" parent="Frame/Main/Displays"]
+margin_left = 605.0
+margin_right = 905.0
+margin_bottom = 533.0
+rect_min_size = Vector2( 300, 0 )
+custom_constants/separation = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Godot" type="Label" parent="Frame/Main/Displays/Controllers"]
+margin_right = 300.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 6 )
+text = "Godot Controllers"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="GodotControllers" type="VBoxContainer" parent="Frame/Main/Displays/Controllers"]
+unique_name_in_owner = true
+margin_top = 34.0
+margin_right = 300.0
+margin_bottom = 52.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="None" type="Label" parent="Frame/Main/Displays/Controllers/GodotControllers"]
+margin_right = 300.0
+margin_bottom = 18.0
+theme = ExtResource( 8 )
+custom_fonts/font = ExtResource( 4 )
+text = "None"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Steam" type="Label" parent="Frame/Main/Displays/Controllers"]
+margin_top = 67.0
+margin_right = 300.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 0, 35 )
+custom_fonts/font = ExtResource( 6 )
+text = "Steam Controllers"
+valign = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SteamControllers" type="VBoxContainer" parent="Frame/Main/Displays/Controllers"]
+unique_name_in_owner = true
+margin_top = 117.0
+margin_right = 300.0
+margin_bottom = 135.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="None" type="Label" parent="Frame/Main/Displays/Controllers/SteamControllers"]
+margin_right = 300.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 4 )
+text = "None"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="List" parent="Frame/Sidebar/Options/Container/Scroll" index="0"]
+margin_bottom = 527.0
+
+[node name="Title" parent="Frame/Sidebar/Options/Container/Scroll/List" index="0"]
+text = "Input Controls"
+
+[node name="Init" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="1"]
+margin_top = 32.0
+margin_right = 245.0
+margin_bottom = 60.0
+theme = ExtResource( 2 )
+text = "Initialize Inputs"
+align = 0
+
+[node name="Shutdown" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="2"]
 margin_top = 70.0
-margin_right = 270.0
+margin_right = 245.0
 margin_bottom = 98.0
-mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 text = "Shutdown Inputs"
 align = 0
@@ -89,94 +146,146 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="GetControllers" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
+[node name="Checking" type="Label" parent="Frame/Sidebar/Options/Container/Scroll/List" index="3"]
 margin_top = 108.0
-margin_right = 270.0
-margin_bottom = 136.0
-mouse_default_cursor_shape = 2
+margin_right = 245.0
+margin_bottom = 127.0
+custom_fonts/font = ExtResource( 6 )
+text = "Controller Checking Functions"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="GetControllers" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="4"]
+margin_top = 137.0
+margin_right = 245.0
+margin_bottom = 165.0
 theme = ExtResource( 2 )
-text = "Get Controllers"
+text = "Get Connected Controllers"
 align = 0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Vibrate" type="Button" parent="Frame/Sidebar/Options/List" index="4"]
-margin_top = 146.0
-margin_right = 270.0
-margin_bottom = 174.0
-mouse_default_cursor_shape = 2
+[node name="GetNames" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="5"]
+margin_top = 175.0
+margin_right = 245.0
+margin_bottom = 203.0
 theme = ExtResource( 2 )
-text = "Trigger Vibrate"
+text = "Get Controller Names"
 align = 0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Haptic" type="Button" parent="Frame/Sidebar/Options/List" index="5"]
-margin_top = 184.0
-margin_right = 270.0
-margin_bottom = 212.0
-mouse_default_cursor_shape = 2
+[node name="Utilities" type="Label" parent="Frame/Sidebar/Options/Container/Scroll/List" index="6"]
+margin_top = 213.0
+margin_right = 245.0
+margin_bottom = 232.0
+custom_fonts/font = ExtResource( 6 )
+text = "Utility Functions"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SetLEDColor" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="7"]
+margin_top = 242.0
+margin_right = 245.0
+margin_bottom = 270.0
 theme = ExtResource( 2 )
-text = "Trigger Haptic Pulse"
+text = "Set LED Color"
 align = 0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="HapticRepeated" type="Button" parent="Frame/Sidebar/Options/List" index="6"]
-margin_top = 222.0
-margin_right = 270.0
-margin_bottom = 250.0
-mouse_default_cursor_shape = 2
+[node name="ShowBindingPanel" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="8"]
+margin_top = 280.0
+margin_right = 245.0
+margin_bottom = 308.0
 theme = ExtResource( 2 )
-text = "Trigger Repeated Haptic Pulse"
+text = "Show Binding Panel"
 align = 0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="GetName" type="Button" parent="Frame/Sidebar/Options/List" index="7"]
-margin_top = 260.0
-margin_right = 270.0
-margin_bottom = 288.0
-mouse_default_cursor_shape = 2
+[node name="HapticVibration" type="Label" parent="Frame/Sidebar/Options/Container/Scroll/List" index="9"]
+margin_top = 318.0
+margin_right = 245.0
+margin_bottom = 337.0
+custom_fonts/font = ExtResource( 6 )
+text = "Haptic / Vibrate Functions"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TriggerVibration" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="10"]
+margin_top = 347.0
+margin_right = 245.0
+margin_bottom = 375.0
 theme = ExtResource( 2 )
-text = "Get Input Name"
+text = "Trigger Vibration"
 align = 0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="8"]
-margin_top = 298.0
-margin_right = 270.0
-margin_bottom = 320.0
-custom_fonts/font = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="9"]
-margin_top = 330.0
-margin_right = 270.0
-margin_bottom = 358.0
-mouse_default_cursor_shape = 2
+[node name="TriggerExtendedVibration" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="11"]
+margin_top = 385.0
+margin_right = 245.0
+margin_bottom = 413.0
 theme = ExtResource( 2 )
-text = "Back To Main Menu"
+text = "Trigger Extended Vibration"
 align = 0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Init" to="." method="_on_Init_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Shutdown" to="." method="_on_Shutdown_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/GetControllers" to="." method="_on_GetControllers_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Vibrate" to="." method="_on_Vibrate_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Haptic" to="." method="_on_Haptic_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/HapticRepeated" to="." method="_on_HapticRepeated_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/GetName" to="." method="_on_GetName_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+[node name="TriggerHaptic" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="12"]
+margin_top = 423.0
+margin_right = 245.0
+margin_bottom = 451.0
+theme = ExtResource( 2 )
+text = "Trigger Haptic"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TriggerSimpleHaptic" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="13"]
+margin_top = 461.0
+margin_right = 245.0
+margin_bottom = 489.0
+theme = ExtResource( 2 )
+text = "Trigger Simple Haptic"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TriggerRepeatedHaptic" type="Button" parent="Frame/Sidebar/Options/Container/Scroll/List" index="14"]
+margin_top = 499.0
+margin_right = 245.0
+margin_bottom = 527.0
+theme = ExtResource( 2 )
+text = "Trigger Repeated Haptic"
+align = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/Init" to="." method="_on_init_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/Shutdown" to="." method="_on_shutdown_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/GetControllers" to="." method="_on_get_controllers_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/GetNames" to="." method="_on_get_name_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/SetLEDColor" to="." method="_on_led_change_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/ShowBindingPanel" to="." method="_on_show_binding_panel_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/TriggerVibration" to="." method="_on_vibrate_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/TriggerExtendedVibration" to="." method="_on_extended_vibrate_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/TriggerHaptic" to="." method="_on_haptic_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/TriggerSimpleHaptic" to="." method="_on_simple_haptic_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Scroll/List/TriggerRepeatedHaptic" to="." method="_on_haptic_repeated_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/Container/Back" to="." method="_on_back_pressed"]
 
 [editable path="Frame"]

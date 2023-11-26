@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://data/fonts/output-text.tres" type="DynamicFont" id=1]
+[ext_resource path="res://data/fonts/sub-titles.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/components/main-output.gd" type="Script" id=3]
+[ext_resource path="res://data/themes/richtextlabel-theme.tres" type="Theme" id=4]
+
+[node name="Output" type="VBoxContainer"]
+margin_top = 137.0
+margin_right = 905.0
+margin_bottom = 450.0
+custom_constants/separation = 25
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="Label" parent="."]
+margin_right = 905.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 2 )
+text = "Debug Output"
+autowrap = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="."]
+margin_top = 44.0
+margin_right = 905.0
+margin_bottom = 313.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 4 )
+custom_fonts/normal_font = ExtResource( 1 )
+scroll_following = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}

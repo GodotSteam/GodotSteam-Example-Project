@@ -3,13 +3,13 @@ extends Panel
 # STATS AND ACHIEVEMENTS EXAMPLE
 #################################################
 # These variables are specific to SpaceWar (app 480)
-var ACHIEVEMENTS: Dictionary = {
+var achievements: Dictionary = {
 	"ACH_TRAVEL_FAR_ACCUM": false,
 	"ACH_TRAVEL_FAR_SINGLE": false,
 	"ACH_WIN_100_GAMES": false,
 	"ACH_WIN_ONE_GAME": false
 	}
-var STATISTICS: Dictionary = {
+var statistics: Dictionary = {
 	"FeetTraveled": 0.0,
 	"MaxFeetTraveled": 0.0,
 	"NumGames": 0,
@@ -19,41 +19,40 @@ var STATISTICS: Dictionary = {
 
 
 func _ready() -> void:
-	# Connect some signals
-	_connect_Steam_Signals("current_stats_received", "_steam_Stats_Ready")
-	_connect_Steam_Signals("user_stats_received", "_steam_Stats_Ready")
+	connect_steam_signals("current_stats_received", "_on_steam_stats_ready")
+	connect_steam_signals("user_stats_received", "_on_steam_stats_ready")
 
 	# Add options to the drop-downs
-	for ACHIEVEMENT in ACHIEVEMENTS.keys():
-		$Frame/Main/Selections/Grid/Achievements.add_item(ACHIEVEMENT)
-	for STATISTIC in STATISTICS.keys():
-		$Frame/Main/Selections/Grid/Statistics/Select.add_item(STATISTIC)
+	for this_achievement in achievements.keys():
+		get_node("%Achievements").add_item(this_achievement)
+	for this_statistic in statistics.keys():
+		get_node("%Select").add_item(this_statistic)
 
 
 #################################################
 # EXTRA FUNCTIONS FOR THE EXAMPLE
 #################################################
 # Show our achievement list
-func _update_Achievement_List() -> void:
+func update_achievement_list() -> void:
 	# Loop through keys and set the display
-	for A in ACHIEVEMENTS.keys():
-		match A:
-			"ACH_WIN_ONE_GAME": $Frame/Main/Readout/Achievements/List/Grid/Value1.set_text(str(ACHIEVEMENTS[A]))
-			"ACH_WIN_100_GAMES": $Frame/Main/Readout/Achievements/List/Grid/Value2.set_text(str(ACHIEVEMENTS[A]))
-			"ACH_TRAVEL_FAR_ACCUM": $Frame/Main/Readout/Achievements/List/Grid/Value3.set_text(str(ACHIEVEMENTS[A]))
-			"ACH_TRAVEL_FAR_SINGLE": $Frame/Main/Readout/Achievements/List/Grid/Value4.set_text(str(ACHIEVEMENTS[A]))
+	for this_achievement in achievements.keys():
+		match this_achievement:
+			"ACH_WIN_ONE_GAME": get_node("%Value1").set_text(str(achievements[this_achievement]))
+			"ACH_WIN_100_GAMES": get_node("%Value2").set_text(str(achievements[this_achievement]))
+			"ACH_TRAVEL_FAR_ACCUM": get_node("%Value3").set_text(str(achievements[this_achievement]))
+			"ACH_TRAVEL_FAR_SINGLE": get_node("%Value4").set_text(str(achievements[this_achievement]))
 
 
 # Show our statistics list
-func _update_Stat_List() -> void:
+func update_stat_list() -> void:
 	# Loop through keys and set the display
-	for S in STATISTICS.keys():
-		match S:
-			"NumGames": $Frame/Main/Readout/Statistics/List/Grid/Value1.set_text(str(STATISTICS[S]))
-			"NumWins": $Frame/Main/Readout/Statistics/List/Grid/Value2.set_text(str(STATISTICS[S]))
-			"NumLosses": $Frame/Main/Readout/Statistics/List/Grid/Value3.set_text(str(STATISTICS[S]))
-			"FeetTraveled": $Frame/Main/Readout/Statistics/List/Grid/Value4.set_text(str(STATISTICS[S]))
-			"MaxFeetTraveled": $Frame/Main/Readout/Statistics/List/Grid/Value5.set_text(str(STATISTICS[S]))
+	for this_stat in statistics.keys():
+		match this_stat:
+			"NumGames": $Frame/Main/Readout/Statistics/List/Grid/Value1.set_text(str(statistics[this_stat]))
+			"NumWins": $Frame/Main/Readout/Statistics/List/Grid/Value2.set_text(str(statistics[this_stat]))
+			"NumLosses": $Frame/Main/Readout/Statistics/List/Grid/Value3.set_text(str(statistics[this_stat]))
+			"FeetTraveled": $Frame/Main/Readout/Statistics/List/Grid/Value4.set_text(str(statistics[this_stat]))
+			"MaxFeetTraveled": $Frame/Main/Readout/Statistics/List/Grid/Value5.set_text(str(statistics[this_stat]))
 
 
 #################################################
@@ -61,138 +60,128 @@ func _update_Stat_List() -> void:
 #################################################
 # Request the current, local user's achievements and stats
 # This will fire by default once Steamworks is initialized
-func _on_requestCurrentStats_pressed() -> void:
+func _on_request_current_stats_pressed() -> void:
 	if not Steam.requestCurrentStats():
-		print("Failed to request current stats from Steam!")
+		get_node("%Output").add_new_text("Failed to request current stats from Steam")
 
 
 # Request the given user's achievements and stats
-func _on_requestUserStats_pressed() -> void:
-	if not Steam.requestUserStats(Global.STEAM_ID):
-		print("Failed to request user stats from Steam!")
+func _on_request_user_stats_pressed() -> void:
+	if not Steam.requestUserStats(Global.steam_id):
+		get_node("%Output").add_new_text("Failed to request user stats from Steam")
 
 
 # Handle callback from requesting user data
-func _steam_Stats_Ready(game: int, result: bool, user: int) -> void:
+func _on_steam_stats_ready(game: int, result: bool, user: int) -> void:
 	# Minor debug information
-	$Frame/Main/Output.append_bbcode("[STEAM] This game's ID: "+str(game)+"\n")
-	$Frame/Main/Output.append_bbcode("[STEAM] Call result: "+str(result)+"\n")
-	$Frame/Main/Output.append_bbcode("[STEAM] This user's Steam ID: "+str(user)+"\n")
+	get_node("%Output").add_new_text("This game's ID: %s" % game)
+	get_node("%Output").add_new_text("Call result: %s" % result)
+	get_node("%Output").add_new_text("This user's Steam ID: %s" % user)
 
 	# Get achievements and pass them to variables
-	_get_Achievement("ACH_WIN_ONE_GAME")
-	_get_Achievement("ACH_WIN_100_GAMES")
-	_get_Achievement("ACH_TRAVEL_FAR_ACCUM")
-	_get_Achievement("ACH_TRAVEL_FAR_SINGLE")
+	get_achievement("ACH_WIN_ONE_GAME")
+	get_achievement("ACH_WIN_100_GAMES")
+	get_achievement("ACH_TRAVEL_FAR_ACCUM")
+	get_achievement("ACH_TRAVEL_FAR_SINGLE")
 
 	# Update our achievement list to see
-	_update_Achievement_List()
+	update_achievement_list()
 
 	# Get statistics (int) and pass them to variables
-	STATISTICS["NumGames"] = Steam.getStatInt("NumGames")
-	STATISTICS["NumWins"] = Steam.getStatInt("NumWins")
-	STATISTICS["NumLosses"] = Steam.getStatInt("NumLosses")
-	STATISTICS["FeetTraveled"] = Steam.getStatFloat("FeetTraveled")
-	STATISTICS["MaxFeetTraveled"] = Steam.getStatFloat("MaxFeetTraveled")
+	statistics["NumGames"] = Steam.getStatInt("NumGames")
+	statistics["NumWins"] = Steam.getStatInt("NumWins")
+	statistics["NumLosses"] = Steam.getStatInt("NumLosses")
+	statistics["FeetTraveled"] = Steam.getStatFloat("FeetTraveled")
+	statistics["MaxFeetTraveled"] = Steam.getStatFloat("MaxFeetTraveled")
 
 	# Update our stat list to see
-	_update_Stat_List()
+	update_stat_list()
 
 
 ##################################################
 # STATISTIC FUNCTIONS
 ##################################################
-func _on_setStats_pressed() -> void:
+func _on_set_stats_pressed() -> void:
 	# Acquire the statistic name from the drop-down
 	# Awful way to do this, but only necessary for the example (NEVER DO THIS)
-	var THIS_ID: int = $Frame/Main/Selections/Grid/Statistics/Select.get_selected_id()
-	var THIS_STAT: String = $Frame/Main/Selections/Grid/Statistics/Select.get_item_text(THIS_ID)
-
+	var this_id: int = get_node("%Select").get_selected_id()
+	var this_stat: String = get_node("%Select").get_item_text(this_id)
 	# Acquire the new value
-	var THIS_VALUE: String = $Frame/Main/Selections/Grid/Statistics/Amount.get_text()
+	var this_value: String = get_node("%Amount").get_text()
 
 	# If this statistic is 1-3 then it is an INT
-	var IS_SET: bool = false
-	if THIS_ID <= 3:
-		IS_SET = Steam.setStatInt(THIS_STAT, int(THIS_VALUE))
+	var is_set: bool = false
+	if this_id <= 3:
+		is_set = Steam.setStatInt(this_stat, int(this_value))
 	# Else this is a float-based statistic
 	else:
-		IS_SET = Steam.setStatFloat(THIS_STAT, float(THIS_VALUE))
-	$Frame/Main/Output.append_bbcode("[STEAM] Statistic for "+str(THIS_STAT)+" stored: "+str(IS_SET)+"\n")
+		is_set = Steam.setStatFloat(this_stat, float(this_value))
+	get_node("%Output").add_new_text("Statistic for %s stored: %s" % [this_stat, is_set])
 	
 	# The stats must be pushed to Steam to register
-	var STORE_STATS: bool = Steam.storeStats()
-	$Frame/Main/Output.append_bbcode("[STEAM] Stats and achievements stored correctly: "+str(STORE_STATS)+"\n")
+	var store_stats: bool = Steam.storeStats()
+	get_node("%Output").add_new_text("Stats and achievements stored correctly: %s" % store_stats)
 
 
 ##################################################
 # ACHIEVEMENT FUNCTIONS
 ##################################################
 # Process achievements
-func _get_Achievement(achievement_name: String) -> void:
-	var ACHIEVE: Dictionary = Steam.getAchievement(achievement_name)
+func get_achievement(achievement_name: String) -> void:
+	var this_achievement: Dictionary = Steam.getAchievement(achievement_name)
 	# Achievement exists
-	if ACHIEVE['ret']:
+	if this_achievement['ret']:
 		# Achievement is unlocked
-		if ACHIEVE['achieved']:
-			ACHIEVEMENTS[achievement_name] = true
+		if this_achievement['achieved']:
+			achievements[achievement_name] = true
 		# Achievement is locked
 		else:
-			ACHIEVEMENTS[achievement_name] = false
+			achievements[achievement_name] = false
 	# Achievement does not exist
 	else:
-		ACHIEVEMENTS[achievement_name] = false
+		achievements[achievement_name] = false
 
 
-func _on_getAchievementIcon_pressed() -> void:
+func _on_get_achievement_icon_pressed() -> void:
 	# Acquire the achievement name from the drop-down
-	# Awful way to do this, but only necessary for the example (NEVER DO THIS)
-	var THIS_ID: int = $Frame/Main/Selections/Grid/Achievements.get_selected_id()
-	var THIS_ACHIEVE: String = $Frame/Main/Selections/Grid/Achievements.get_item_text(THIS_ID)
+	var this_id: int = get_node("%Achievements").get_selected_id()
+	var this_achieve: String = get_node("%Achievements").get_item_text(this_id)
 
-	# Set up some icon variables
-	var SIZE: int = 64
+	var icon_size: int = 64
+	var icon_handle: int = Steam.getAchievementIcon(this_achieve)
+	var icon_buffer: Dictionary = Steam.getImageRGBA(icon_handle)
 	
-	# Get the image's handle
-	var HANDLE: int = Steam.getAchievementIcon(THIS_ACHIEVE)
-
-	# Get the image data
-	var BUFFER: Dictionary = Steam.getImageRGBA(HANDLE)
-	
-	print(BUFFER)
-	# Create the image and texture for loading
-	var ICON: Image = Image.new()
-	var ICON_TEXTURE: ImageTexture = ImageTexture.new()
-	ICON.create_from_data(SIZE, SIZE, false, Image.FORMAT_RGBA8, BUFFER['buffer'])
-
-	# Apply it to the texture
-	ICON_TEXTURE.create_from_image(ICON)
-
-	# Display it
-	$Frame/Main/Readout/Achievements/List/Icon/Icon.set_texture(ICON_TEXTURE)
+	if icon_buffer['success']:
+		# Create the image and texture for loading
+		var icon: Image = Image.new()
+		icon.create_from_data(icon_size, icon_size, false, Image.FORMAT_RGBA8, icon_buffer['buffer'])
+		# Apply it to the texture
+		var icon_texture: ImageTexture = ImageTexture.new()
+		icon_texture.create_from_image(icon)
+		# Display it
+		get_node("%Icon").set_texture(icon_texture)
 
 
 # Fire a Steam achievement
 # Must contain the same name as what is listed in your Steamworks back-end
-func _on_setAchievement_pressed() -> void:
+func _on_set_achievement_pressed() -> void:
 	# Acquire the achievement name from the drop-down
-	# Awful way to do this, but only necessary for the example (NEVER DO THIS)
-	var THIS_ID: int = $Frame/Main/Selections/Grid/Achievements.get_selected_id()
-	var THIS_ACHIEVE: String = $Frame/Main/Selections/Grid/Achievements.get_item_text(THIS_ID)
+	var this_id: int = get_node("%Achievements").get_selected_id()
+	var this_achieve: String = get_node("%Achievements").get_item_text(this_id)
 
 	# Set the achievement value locally
-	ACHIEVEMENTS[THIS_ACHIEVE] = true
+	achievements[this_achieve] = true
 
 	# Pass the value to Steam
-	var SET_ACHIEVE: bool = Steam.setAchievement(THIS_ACHIEVE)
-	$Frame/Main/Output.append_bbcode("[STEAM] Achievement "+str(THIS_ACHIEVE)+" set correctly: "+str(SET_ACHIEVE)+"\n")
+	var set_achieve: bool = Steam.setAchievement(this_achieve)
+	get_node("%Output").add_new_text("Achievement %s set correctly: %s" % [this_achieve, set_achieve])
 
 	# Now fire it so it appears to the player
-	var STORE_STATS: bool = Steam.storeStats()
-	$Frame/Main/Output.append_bbcode("[STEAM] Stats and achievements stored correctly: "+str(STORE_STATS)+"\n")
+	var store_stats: bool = Steam.storeStats()
+	get_node("%Output").add_new_text("Stats and achievements stored correctly: %s" % store_stats)
 
 	# Update our list to see
-	_update_Achievement_List()
+	update_achievement_list()
 
 
 #################################################
@@ -200,24 +189,23 @@ func _on_setAchievement_pressed() -> void:
 #################################################
 # This will reset all statistics the user has on Steam
 # Setting the variable to true will also reset their achievements
-func _on_resetAllStats_pressed() -> void:
-	var ACHIEVEMENTS_TOO: bool = true
-	var IS_RESET: bool = Steam.resetAllStats(ACHIEVEMENTS_TOO)
-	$Frame/Main/Output.append_bbcode("[STEAM] Statistics and achievements reset: "+str(IS_RESET)+"\n")
+func _on_reset_all_stats_pressed() -> void:
+	var achievements_too: bool = true
+	var is_reset: bool = Steam.resetAllStats(achievements_too)
+	get_node("%Output").add_new_text("Statistics and achievements reset: %s" % is_reset)
 	
 	# Make sure to request the updated stats and achievements
-	_on_requestUserStats_pressed()
+	_on_request_user_stats_pressed()
 
 
 #################################################
 # HELPER FUNCTIONS
 #################################################
-func _on_Back_pressed() -> void:
-	Loading._load_Scene("main")
+func connect_steam_signals(this_signal: String, this_function: String) -> void:
+	var signal_connect: int = Steam.connect(this_signal, self, this_function)
+	if signal_connect > OK:
+		print("Connecting %s to %s failed: %s" % [this_signal, this_function, signal_connect])
 
 
-# Connect a Steam signal and show the success code
-func _connect_Steam_Signals(this_signal: String, this_function: String) -> void:
-	var SIGNAL_CONNECT: int = Steam.connect(this_signal, self, this_function)
-	if SIGNAL_CONNECT > OK:
-		print("[STEAM] Connecting "+str(this_signal)+" to "+str(this_function)+" failed: "+str(SIGNAL_CONNECT))
+func _on_back_pressed() -> void:
+	Loading.load_scene("main")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://data/tilesets/networking-tiles.tres" type="TileSet" id=1]
+[ext_resource path="res://src/components/networking-player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/examples/networking-messages-game.gd" type="Script" id=3]
+
+[node name="NetworkingMessagesGame" type="Node2D"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0.298039, 0.298039, 0.298039, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+format = 1
+tile_data = PoolIntArray( 65536, 0, 0, 65555, 0, 0, 131072, 1, 0, 131091, 1, 0, 196608, 1, 0, 196627, 1, 0, 262144, 1, 0, 262145, 0, 0, 262162, 0, 0, 262163, 1, 0, 327680, 1, 0, 327681, 1, 0, 327698, 1, 0, 327699, 1, 0, 393216, 1, 0, 393217, 1, 0, 393234, 1, 0, 393235, 1, 0, 458752, 1, 0, 458753, 1, 0, 458754, 0, 0, 458769, 0, 0, 458770, 1, 0, 458771, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 0, 0, 524304, 0, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 720896, 1, 0, 720897, 1, 0, 720898, 1, 0, 720899, 1, 0, 720900, 1, 0, 720901, 1, 0, 720902, 1, 0, 720903, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0, 720907, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 1, 0, 720915, 1, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 345, 575 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

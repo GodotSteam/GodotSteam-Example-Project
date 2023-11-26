@@ -10,6 +10,7 @@ This version covers:
 - Loading and setting achievements and statistics
 	- Now utilizes both current and user statistics
 - Firing achievements
+- New networking messages class
 - Loading player avatars
 - Creating a lobby
 - Lobby message chat
