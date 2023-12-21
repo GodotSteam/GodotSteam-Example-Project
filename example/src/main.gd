@@ -2,6 +2,10 @@ extends Panel
 #################################################
 # MAIN MENU SCENE
 #################################################
+
+func _ready() -> void:
+	print("ready")
+
 # Load up an example
 func _start_Example(which: String) -> void:
 	print("Loading up "+str(which)+" example")
