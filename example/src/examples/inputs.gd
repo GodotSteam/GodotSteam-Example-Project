@@ -64,7 +64,7 @@ func get_godot_controllers() -> void:
 
 	if godot_controllers.size() > 0:
 		# Print the list to output
-		get_node("%Output").add_new_text("\nGodot found %s connected controllers: %s" % godot_controllers.size())
+		get_node("%Output").add_new_text("\nGodot found %s connected controllers" % godot_controllers.size())
 		for this_controller in godot_controllers:
 			var this_controller_name: String = Input.get_joy_name(this_controller)
 			get_node("%Output").add_new_text("- %s" % this_controller_name)
@@ -193,7 +193,7 @@ func _on_input_configuration_loaded(app_id: int, input_handle: int, config_data:
 	get_node("%Output").add_new_text("- Major revision: %s " % config_data['major_revision'])
 	get_node("%Output").add_new_text("- Minor revision: %s " % config_data['minor_revision'])
 	get_node("%Output").add_new_text("- Uses Steam Input API: %s " % config_data['uses_steam_input_api'])
-	get_node("%Output").add_new_text("- Users Gamepad API: %s " % config_data[''])
+	get_node("%Output").add_new_text("- Users Gamepad API: %s " % config_data['uses_gamepad_api'])
 
 
 func _on_input_gamepad_slot_change(_app_id: int, input_handle: int, _input_type: int, old_gamepad_slot: int, new_gamepad_slot: int) -> void:

@@ -1,6 +1,6 @@
 extends Panel
 #################################################
-# AVATAR EXAMPLE
+# avatar_image EXAMPLE
 #################################################
 
 
@@ -12,30 +12,30 @@ func _on_loaded_avatar(id: int, size: int, buffer: PoolByteArray) -> void:
 	print("Avatar for user: "+str(id)+", size: "+str(size))
 	# Create the image and texture for loading
 	# Apply the avatar data from Steam then set this to our sprite
-	var AVATAR: Image = Image.new()
-	var AVATAR_TEXTURE: ImageTexture = ImageTexture.new()
+	var avatar_image: Image = Image.new()
+	var avatar_texture: ImageTexture = ImageTexture.new()
 
-	AVATAR.create_from_data(size, size, false, Image.FORMAT_RGBA8, buffer)
-	AVATAR_TEXTURE.create_from_image(AVATAR)
+	avatar_image.create_from_data(size, size, false, Image.FORMAT_RGBA8, buffer)
+	avatar_texture.create_from_image(avatar_image)
 
 	if size == 32:
-		$Frame/Main/Images/Small/Avatar.set_texture(AVATAR_TEXTURE)
+		$Frame/Main/Images/Small/Avatar.set_texture(avatar_texture)
 	elif size == 64:
-		$Frame/Main/Images/Medium/Avatar.set_texture(AVATAR_TEXTURE)
+		$Frame/Main/Images/Medium/Avatar.set_texture(avatar_texture)
 	else:
 		$Frame/Main/Images/Large/Label.set_text("Large Avatar - 128 x 128 pixels (Retrieved as "+str(size)+" pixels)")
-		$Frame/Main/Images/Large/Avatar.set_texture(AVATAR_TEXTURE)
+		$Frame/Main/Images/Large/Avatar.set_texture(avatar_texture)
 
 
 # Load avatars buttons, pass the size you want and the player's Steam ID
 func _on_request_avatar_pressed(this_size: String) -> void:
 	match this_size:
 		"large":
-			Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Global.STEAM_ID)
+			Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Global.steam_id)
 		"medium":
-			Steam.getPlayerAvatar(Steam.AVATAR_MEDIUM, Global.STEAM_ID)
+			Steam.getPlayerAvatar(Steam.AVATAR_MEDIUM, Global.steam_id)
 		"small":
-			Steam.getPlayerAvatar(Steam.AVATAR_SMALL, Global.STEAM_ID)
+			Steam.getPlayerAvatar(Steam.AVATAR_SMALL, Global.steam_id)
 
 
 #################################################

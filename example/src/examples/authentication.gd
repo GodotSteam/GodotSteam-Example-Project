@@ -42,7 +42,7 @@ func _on_get_auth_session_ticket_response(this_auth_ticket: int, this_result: in
 # Request an auth ticket from Steam
 func _on_get_auth_ticket_pressed() -> void:
 	auth_ticket = Steam.getAuthSessionTicket("")
-	get_node("%Output").add_new_text("Auth Ticket: %\n" % auth_ticket)
+	get_node("%Output").add_new_text("Auth Ticket: %s\n" % auth_ticket)
 
 
 # Callback from attempting to validate the auth ticket

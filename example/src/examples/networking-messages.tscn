@@ -46,7 +46,7 @@ __meta__ = {
 [node name="Frame" parent="." instance=ExtResource( 7 )]
 
 [node name="Title" parent="Frame/Main/Topbar" index="1"]
-text = "Networking Messages Example"
+text = "Networking Messages Example (WIP)"
 
 [node name="Message" type="Label" parent="Frame/Main" index="1"]
 margin_top = 73.0
