@@ -44,9 +44,7 @@ text = "Voice Example"
 layout_mode = 2
 text = "Here we test some functionality for Steam Voice to capture and playback voice chat.
 
-You can press-to-talk or toggle voice on/off.  To hear yourself, enable loopback.  You can also change the optimal sample rate by pressing the corresponding button.  However, as Valve notes, using the optimal sample rate will result in lower CPU usage but may sound worse.
-
-You may also notice the playback seems a little jumpy or choppy.  No one has quite figured out why that is yet.  If you can solve this, please open a pull-request!"
+You can press-to-talk or toggle voice on/off.  To hear yourself, enable loopback.  You can also change the optimal sample rate by pressing the corresponding button.  However, as Valve notes, using the optimal sample rate will result in lower CPU usage but may sound worse."
 fit_content = true
 metadata/_edit_lock_ = true
 

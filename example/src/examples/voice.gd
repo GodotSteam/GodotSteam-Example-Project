@@ -21,6 +21,10 @@ func _ready() -> void:
 	for NOTIFICATION in $Frame/Main/Notifications.get_children():
 		if NOTIFICATION.name != "Off":
 			NOTIFICATION.hide()
+	
+	$Frame/Main/Players/Local.stream.mix_rate = CURRENT_SAMPLE_RATE
+	$Frame/Main/Players/Local.play()
+	LOCAL_PLAYBACK = $Frame/Main/Players/Local.get_stream_playback()
 
 
 func _process(_delta: float) -> void:
@@ -41,6 +45,8 @@ func _on_Loopback_pressed() -> void:
 
 func _on_Optimal_pressed() -> void:
 	USE_OPTIMAL_SAMPLE_RATE = !USE_OPTIMAL_SAMPLE_RATE
+	_get_Sample_Rate()
+	$Frame/Main/Players/Local.stream.mix_rate = CURRENT_SAMPLE_RATE
 	$Frame/Main/Notifications/Optimal.set_visible(USE_OPTIMAL_SAMPLE_RATE)
 
 
@@ -110,22 +116,33 @@ func _play_Network_Voice(voice_data: Dictionary) -> void:
 	_process_Voice_Data(voice_data, "remote")
 
 
-# Works but has stuttering
 func _process_Voice_Data(voice_data: Dictionary, voice_source: String) -> void:
 	_get_Sample_Rate()
-
+	
 	var DECOMPRESSED_VOICE: Dictionary = Steam.decompressVoice(voice_data['buffer'], voice_data['written'], CURRENT_SAMPLE_RATE)
-	if DECOMPRESSED_VOICE['result'] == Steam.VOICE_RESULT_OK and DECOMPRESSED_VOICE['size'] > 0:
-		print("Decompressed voice: "+str(DECOMPRESSED_VOICE['size']))
-		if voice_source == "local":
-			LOCAL_VOICE_BUFFER = DECOMPRESSED_VOICE['uncompressed']
-			LOCAL_VOICE_BUFFER.resize(DECOMPRESSED_VOICE['size'])
-			var LOCAL_AUDIO: AudioStreamWAV = AudioStreamWAV.new()
-			LOCAL_AUDIO.mix_rate = CURRENT_SAMPLE_RATE
-			LOCAL_AUDIO.data = LOCAL_VOICE_BUFFER
-			LOCAL_AUDIO.format = AudioStreamWAV.FORMAT_16_BITS
-			$Frame/Main/Players/Local.stream = LOCAL_AUDIO
-			$Frame/Main/Players/Local.play()
+	if (
+			not DECOMPRESSED_VOICE['result'] == Steam.VOICE_RESULT_OK
+			or DECOMPRESSED_VOICE['size'] == 0
+			or not voice_source == "local"
+	):
+		return
+	
+	if LOCAL_PLAYBACK.get_frames_available() <= 0:
+		return
+	
+	LOCAL_VOICE_BUFFER = DECOMPRESSED_VOICE['uncompressed']
+	LOCAL_VOICE_BUFFER.resize(DECOMPRESSED_VOICE['size'])
+	
+	for i: int in range(0, mini(LOCAL_PLAYBACK.get_frames_available() * 2, LOCAL_VOICE_BUFFER.size()), 2):
+		# Combine the low and high bits to get full 16-bit value
+		var RAW_VALUE: int = LOCAL_VOICE_BUFFER[0] | (LOCAL_VOICE_BUFFER[1] << 8)
+		# Make it a 16-bit signed integer
+		RAW_VALUE = (RAW_VALUE + 32768) & 0xffff
+		# Convert the 16-bit integer to a float on from -1 to 1
+		var AMPLITUDE: float = float(RAW_VALUE - 32768) / 32768.0
+		LOCAL_PLAYBACK.push_frame(Vector2(AMPLITUDE, AMPLITUDE))
+		LOCAL_VOICE_BUFFER.remove_at(0)
+		LOCAL_VOICE_BUFFER.remove_at(0)
 
 
 #################################################
