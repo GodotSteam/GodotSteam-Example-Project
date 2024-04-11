@@ -3,15 +3,13 @@
 [sub_resource type="GDScript" id="GDScript_dikc6"]
 script/source = "extends Node
 
+
 @export var UI:Control
 @onready var lobby_list = $PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer/Panel/Lobbies/Lobbies
 
 
 var lobby_id: int = 0
 var peer = SteamMultiplayerPeer.new()
-
-@export var lobby_filter: String = \"\"
-var case_sensitive: bool = false
 
 func _ready():
 	# Yeah so we need to do this here because the Steam autoload doesn't call it for some reason. I don't like it.
@@ -66,19 +64,9 @@ func _on_lobby_match_list(these_lobbies: Array) -> void:
 			n.queue_free()
 	
 	for this_lobby in these_lobbies:
-		
 		var lobby_name: String = Steam.getLobbyData(this_lobby, \"name\")
 		var lobby_mode: String = Steam.getLobbyData(this_lobby, \"mode\")
 		var lobby_num_members: int = Steam.getNumLobbyMembers(this_lobby)
-		
-		if lobby_filter != \"\":
-			if !case_sensitive:
-				print(lobby_name.to_lower())
-				if !lobby_name.to_lower().contains(lobby_filter.to_lower()):
-					continue
-			else:
-				if !lobby_name.contains(lobby_filter):
-					continue
 		
 		var lobby_button: Button = Button.new()
 		lobby_button.set_text(\"Lobby %s: %s [%s] - %s Player(s)\" % [this_lobby, lobby_name, lobby_mode, lobby_num_members])
@@ -101,16 +89,6 @@ func _on_tab_container_tab_clicked(tab):
 
 
 func _on_refresh_pressed():
-	_open_lobby_list()
-
-
-func _on_filter_text_changed(new_text):
-	lobby_filter = new_text
-	_open_lobby_list()
-
-
-func _on_case_sensitive_toggled(toggled_on):
-	case_sensitive = toggled_on
 	_open_lobby_list()
 "
 
@@ -182,6 +160,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 bbcode_enabled = true
 text = "This is a demo projects intending to very basically demonstrate Godot's built in UDP based networking (based on the ENet library), as well as how to replace ENet with SteamMultiplayerPeer.
@@ -210,22 +189,11 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "Host"
 
-[node name="Refresh" type="Button" parent="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer/HostSteam"]
+[node name="Refresh" type="Button" parent="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer"]
 layout_mode = 2
-offset_left = 44.0
-offset_right = 129.0
-offset_bottom = 31.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
-text = "Refresh"
-
-[node name="Filter" type="LineEdit" parent="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer"]
-layout_mode = 2
-placeholder_text = "Filter"
-
-[node name="CaseSensitive" type="CheckBox" parent="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer"]
-layout_mode = 2
-text = "Case Sensitive"
+text = "Refresh Lobby List"
 
 [node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer"]
 layout_mode = 2
@@ -281,9 +249,7 @@ text = "Exit"
 [connection signal="tab_clicked" from="PanelContainer/VBoxContainer/TabContainer" to="." method="_on_tab_container_tab_clicked"]
 [connection signal="join" from="PanelContainer/VBoxContainer/TabContainer/Steam/Steam" to="." method="_on_steam_join"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer/HostSteam" to="." method="_on_host_steam_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer/HostSteam/Refresh" to="." method="_on_refresh_pressed"]
-[connection signal="text_changed" from="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer/Filter" to="." method="_on_filter_text_changed"]
-[connection signal="toggled" from="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer/CaseSensitive" to="." method="_on_case_sensitive_toggled"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/TabContainer/Steam/VBoxContainer/Refresh" to="." method="_on_refresh_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/TabContainer/UDP (ENet)/HostUDP" to="." method="_on_host_udp_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/TabContainer/UDP (ENet)/JoinUDP" to="." method="_on_join_udp_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
