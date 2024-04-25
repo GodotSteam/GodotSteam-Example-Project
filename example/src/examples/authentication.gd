@@ -18,6 +18,10 @@ func _get_Auth_Session_Ticket_Response(auth_ticket: int, result: int) -> void:
 
 
 func _on_BeginAuthSession_pressed() -> void:
+	if TICKET.is_empty():
+		$Frame/Main/Output.append_text("ERROR: Ticket is empty (Needs to be requested first!) \n\n")
+		return
+	
 	var RESPONSE: int = Steam.beginAuthSession(TICKET['buffer'], TICKET['size'], Global.STEAM_ID)
 	# Get a verbose response
 	var VERBOSE_RESPONSE: String
@@ -72,8 +76,12 @@ func _validate_Auth_Ticket_Response(auth_id: int, response: int, owner_id: int) 
 #################################################
 # Cancel the auth ticket
 func _on_CancelAuthTicket_pressed() -> void:
+	if TICKET.is_empty():
+		$Frame/Main/Output.append_text("ERROR: Ticket is empty (Needs to be requested first!) \n\n")
+		return
 	Steam.cancelAuthTicket(TICKET['id'])
 	$Frame/Main/Output.append_text("Canceling your auth ticket...\n\n")
+
 
 
 # Ends the auth session with, well, you
