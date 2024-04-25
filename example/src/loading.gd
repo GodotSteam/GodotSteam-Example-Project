@@ -13,8 +13,12 @@ var TIME_MAX: int = 100
 var WAIT_FRAMES: int = 0
 
 
+signal load_scene(scene_name : String)
+
+
 func _ready() -> void:
 	set_process_input(true)
+	load_scene.connect(_load_Scene)
 
 
 func _process(_delta: float) -> void:

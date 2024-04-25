@@ -4,115 +4,166 @@ extends Panel
 #################################################
 # Steam's Inputs is somewhat unreliable sometimes
 # Godot's input is a lot more reliable so we will be mixing the two in here for now
-var JOYSTICK_NUM
-var CURRENT_JOYSTICK: int = -1
-var AXIS_VALUE
-var STEAM_CONTROLLERS: Array
-var GODOT_CONTROLLERS: Array
+
+
+# Note: 6-9 are currently unused (as of 4/25/2024)
+# See https://partner.steamgames.com/doc/api/ISteamInput#ESteamInputType
+const STEAM_INPUT_TYPE_DICT : Dictionary = {
+	0: "Catch-all for unrecognized devices",
+	1:	"Valve's Steam Controller",
+	2:	"Microsoft's XBox 360 Controller",
+	3:	"Microsoft's XBox One Controller",
+	4:	"Any generic 3rd-party XInput device",
+	5:	"Sony's PlayStation 4 Controller",
+	6:  "Unused",
+	7:  "Unused",
+	8:  "Unused",
+	9:  "Unused",
+	10:	"Nintendo's Switch Pro Controller",
+	11:	"Steam Link App's Mobile Touch Controller",
+	12:	"Sony's PlayStation 3 Controller or PS3/PS4 compatible fight stick",
+}
+
+var steam_controllers: Array
+var godot_controllers: Array
+
+@onready var output: RichTextLabel = $Frame/Main/Output
 
 
 func _ready() -> void:
-	_connect_Godot_Signals("joy_connection_changed", "_on_Joy_Connection_Changed")
+	# Godot Input Signals
+	_connect_godot_input_signal("joy_connection_changed", _on_joy_connection_changed)
+	
+	# Steam Signals
+	_connect_steam_signal("input_device_connected", _on_steam_input_device_connected)
+	_connect_steam_signal("input_device_disconnected", _on_steam_input_device_disconnected)
+	_connect_steam_signal("input_configuration_loaded", _on_steam_input_configuration_loaded)
+
+
+func _on_steam_input_device_connected(input_handle : int):
+	output.append_text("[Steam Input] Signal: Input device with handle " + str(input_handle) + " connected\n")
+
+
+func _on_steam_input_device_disconnected(input_handle : int):
+	output.append_text("[Steam Input] Signal: Input device with handle " + str(input_handle) + " disconnected\n")
+
+
+func _on_steam_input_configuration_loaded(app_id: int, device_handle: int, config_data: Dictionary):
+	output.append_text("[Steam Input] Signal: Input Configuration loaded: \n")
+	output.append_text("- App ID: %s \n" % str(app_id))
+	output.append_text("- Device Handle: %s \n" % str(device_handle))
 
 
 # Get a list of all connected controllers
-func _on_GetControllers_pressed() -> void:
+func _on_get_controllers_pressed() -> void:
 	Steam.runFrame()
 	
 	# Get Steam's input list
-	STEAM_CONTROLLERS = Steam.getConnectedControllers()
+	steam_controllers = Steam.getConnectedControllers()
 	
 	# Print the list to output
-	$Frame/Main/Output.append_text("Steam found "+str(STEAM_CONTROLLERS.size())+" connected controllers:\n")
-	for CONTROLLER in STEAM_CONTROLLERS.size():
-		$Frame/Main/Output.append_text(str(STEAM_CONTROLLERS[CONTROLLER])+"\n")
+	output.append_text("[Steam Input] Found "+str(steam_controllers.size())+" connected controllers:\n")
+	for controller in steam_controllers.size():
+		output.append_text(str(steam_controllers[controller])+"\n")
 
 
 # Get the input's type by handle
-func _on_GetName_pressed() -> void:
-	$Frame/Main/Output.append_text("[Steam Inputs] Get input type by it's handle...\n\n")
+func _on_get_name_pressed() -> void:
+	output.append_text("[Steam Inputs] Get input type by it's handle...\n\n")
 
-	for CONTROLLER in STEAM_CONTROLLERS.size():
-		var TYPE: String = Steam.getInputTypeForHandle(STEAM_CONTROLLERS[CONTROLLER])
+	for controller in steam_controllers.size():
+		var TYPE: int = Steam.getInputTypeForHandle(steam_controllers[controller])
 
 		# Print it to the output
-		$Frame/Main/Output.append_text("For handle "+str(STEAM_CONTROLLERS[CONTROLLER])+": "+str(TYPE)+"\n")
+		var OUTPUT : String = "- %s has InputType of %s (%s)" % [
+			str(steam_controllers[controller]), 
+			str(TYPE), 
+			STEAM_INPUT_TYPE_DICT[TYPE],
+			]
+		
+		output.append_text(OUTPUT + "\n")
 
 
 # Initialize the Inputs interface
-func _on_Init_pressed() -> void:
+func _on_init_pressed() -> void:
 	# Get Godot's input list
-	GODOT_CONTROLLERS = Input.get_connected_joypads()
+	godot_controllers = Input.get_connected_joypads()
 	
 	# Print the list to output
-	$Frame/Main/Output.append_text("Godot found "+str(GODOT_CONTROLLERS.size())+" connected controllers:\n")
-	for CONTROLLER in GODOT_CONTROLLERS:
-		$Frame/Main/Output.append_text(str(Input.get_joy_name(GODOT_CONTROLLERS[CONTROLLER]))+"\n")
+	output.append_text("[Godot Input] Found "+str(godot_controllers.size())+" connected controllers:\n")
+	for controller in godot_controllers:
+		output.append_text("- " + str(Input.get_joy_name(godot_controllers[controller])) + "\n")
+	
+	#Spacing
+	output.append_text(" \n")
 
 	# Initialize Steam Inputs
 	if Steam.inputInit():
-		$Frame/Main/Output.append_text("\nSteam Inputs is running!\n\n")
+		output.append_text("[Steam Input] Running!\n\n")
 	else:
-		$Frame/Main/Output.append_text("\nSteam Inputs is not running... something went wrong.\n\n")
+		output.append_text("[Steam Input] Not running... something went wrong.\n\n")
 
 	# Start the frame run
 	Steam.runFrame()
 
 
 # Called whenever a joypad has been connected or disconnected.
-func _on_Joy_Connection_Changed(device_id: int, connected: bool) -> void:
+func _on_joy_connection_changed(device_id: int, connected: bool) -> void:
 	if connected:
-		$Frame/Main/Output.append_text(str(Input.get_joy_name(device_id))+"\n\n")
+		output.append_text(str(Input.get_joy_name(device_id))+"\n\n")
 
 
-# Create a haptic pulse
-func _on_Haptic_pressed() -> void:
-	$Frame/Main/Output.append_text("[Steam Inputs] Sending haptic pulse to all applicable and connected controllers...\n\n")
+# Create a haptic pulse. 
+# Note: Currently only the Steam Controller, Steam Deck, 
+# and Nintendo Switch Pro Controller devices support haptic pulses. (4/25/2024)
+func _on_haptic_pressed() -> void:
+	output.append_text("[Steam Input] Sending haptic pulse to all applicable and connected controllers...\n\n")
 
-	for CONTROLLER in STEAM_CONTROLLERS.size():
-		Steam.triggerHapticPulse(STEAM_CONTROLLERS[CONTROLLER], 0, 500000)
+	for controller in steam_controllers.size():
+		Steam.triggerHapticPulse(steam_controllers[controller], 0, 500000)
 
 
-# Create a repeated haptic pulse
-func _on_HapticRepeated_pressed() -> void:
-	$Frame/Main/Output.append_text("[Steam Inputs] Sending repeated haptic pulse to all applicable and connected controllers...\n\n")
+# Create a repeated haptic pulse. 
+# Note: Currently only the Steam Controller, Steam Deck, 
+# and Nintendo Switch Pro Controller devices support haptic pulses. (4/25/2024)
+func _on_haptic_repeated_pressed() -> void:
+	output.append_text("[Steam Input] Sending repeated haptic pulse to all applicable and connected controllers...\n\n")
 
-	for CONTROLLER in STEAM_CONTROLLERS.size():
-		Steam.triggerRepeatedHapticPulse(STEAM_CONTROLLERS[CONTROLLER], 0, 50000, 500000, 10, 0)
+	for controller in steam_controllers.size():
+		Steam.triggerRepeatedHapticPulse(steam_controllers[controller], 0, 50000, 500000, 10, 0)
 
 
 # Shutdown the Inputs interface
-func _on_Shutdown_pressed() -> void:
-	if Steam.inputShutdown():
-		$Frame/Main/Output.append_text("[Steam Inputs] Shutdown successfully.\n\n")
-	else:
-		$Frame/Main/Output.append_text("[Steam Inputs] Shutdown failed for some reason.\n\n")
+func _on_shutdown_pressed() -> void:
+	if Steam.inputShutdown(): # Note: Always returns true.
+		output.append_text("[Steam Input] Shutdown successful.\n\n")
 
 
 # Vibrate all connected input handles
-func _on_Vibrate_pressed() -> void:
-	$Frame/Main/Output.append_text("[Steam Inputs] Vibrating all applicable and connected controllers...\n")
+# Note: This API call will be ignored for incompatible controller models. 
+func _on_vibrate_pressed() -> void:
+	output.append_text("[Steam Input] Vibrating all applicable and connected controllers...\n")
 
-	for CONTROLLER in STEAM_CONTROLLERS.size():
-		$Frame/Main/Output.append_text("[Steam Inputs] Vibrating controller "+str(STEAM_CONTROLLERS[CONTROLLER])+" with speeds 1000\n")
-		Steam.triggerVibration(STEAM_CONTROLLERS[CONTROLLER], 5000, 5000)
+	for controller in steam_controllers.size():
+		output.append_text("[Steam Input] Vibrating controller "+str(steam_controllers[controller])+" with speeds 5000\n")
+		Steam.triggerVibration(steam_controllers[controller], 5000, 5000)
 
 
 #################################################
 # HELPER FUNCTIONS
 #################################################
-func _on_Back_pressed() -> void:
-	Loading._load_Scene("main")
+func _on_back_pressed() -> void:
+	Loading.load_scene.emit("main")
 
 
-func _connect_Godot_Signals(this_signal: String, this_function: String) -> void:
-	var SIGNAL_CONNECT: int = Input.connect(this_signal, Callable(self, this_function))
-	if SIGNAL_CONNECT > OK:
-		print("[GODOT] Connecting "+str(this_signal)+" to "+str(this_function)+" failed: "+str(SIGNAL_CONNECT))
+func _connect_godot_input_signal(_signal: String, _function: Callable) -> void:
+	var signal_connect : int = Input.connect(_signal, _function)
+	if signal_connect > OK:
+		printerr("[GODOT INPUT] Connecting "+str(_signal)+" to "+str(_function)+" failed: "+str(signal_connect))
 
 
 # Connect a Steam signal and show the success code
-func _connect_Steam_Signals(this_signal: String, this_function: String) -> void:
-	var SIGNAL_CONNECT: int = Steam.connect(this_signal, Callable(self, this_function))
-	if SIGNAL_CONNECT > OK:
-		print("[STEAM] Connecting "+str(this_signal)+" to "+str(this_function)+" failed: "+str(SIGNAL_CONNECT))
+func _connect_steam_signal(_signal: String, _function: Callable) -> void:
+	var signal_connect = Steam.connect(_signal, _function)
+	if signal_connect > OK:
+		printerr("[STEAM] Connecting "+str(_signal)+" to "+str(_function)+" failed: "+str(signal_connect))
