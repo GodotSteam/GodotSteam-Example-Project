@@ -125,13 +125,13 @@ theme = ExtResource("2")
 text = "Back To Main Menu"
 metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Init" to="." method="_on_Init_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Shutdown" to="." method="_on_Shutdown_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/GetControllers" to="." method="_on_GetControllers_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Vibrate" to="." method="_on_Vibrate_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Haptic" to="." method="_on_Haptic_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/HapticRepeated" to="." method="_on_HapticRepeated_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/GetName" to="." method="_on_GetName_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Init" to="." method="_on_init_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Shutdown" to="." method="_on_shutdown_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetControllers" to="." method="_on_get_controllers_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Vibrate" to="." method="_on_vibrate_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Haptic" to="." method="_on_haptic_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/HapticRepeated" to="." method="_on_haptic_repeated_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetName" to="." method="_on_get_name_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_back_pressed"]
 
 [editable path="Frame"]
