@@ -10,18 +10,18 @@ extends Panel
 # See https://partner.steamgames.com/doc/api/ISteamInput#ESteamInputType
 const STEAM_INPUT_TYPE_DICT : Dictionary = {
 	0: "Catch-all for unrecognized devices",
-	1:	"Valve's Steam Controller",
-	2:	"Microsoft's XBox 360 Controller",
-	3:	"Microsoft's XBox One Controller",
-	4:	"Any generic 3rd-party XInput device",
-	5:	"Sony's PlayStation 4 Controller",
+	1: "Valve's Steam Controller",
+	2: "Microsoft's XBox 360 Controller",
+	3: "Microsoft's XBox One Controller",
+	4: "Any generic 3rd-party XInput device",
+	5: "Sony's PlayStation 4 Controller",
 	6:  "Unused",
 	7:  "Unused",
 	8:  "Unused",
 	9:  "Unused",
-	10:	"Nintendo's Switch Pro Controller",
-	11:	"Steam Link App's Mobile Touch Controller",
-	12:	"Sony's PlayStation 3 Controller or PS3/PS4 compatible fight stick",
+	10: "Nintendo's Switch Pro Controller",
+	11: "Steam Link App's Mobile Touch Controller",
+	12: "Sony's PlayStation 3 Controller or PS3/PS4 compatible fight stick",
 }
 
 var steam_controllers: Array
