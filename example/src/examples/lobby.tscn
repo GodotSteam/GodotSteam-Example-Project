@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqo6cngvldt46"]
+[gd_scene load_steps=13 format=3 uid="uid://bqo6cngvldt46"]
 
 [ext_resource type="Script" path="res://src/examples/lobby.gd" id="1"]
 [ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
@@ -6,19 +6,13 @@
 [ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="5"]
 [ext_resource type="FontFile" path="res://data/fonts/output-text.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://c5mucger62sy5" path="res://src/components/back_button.tscn" id="7_o2kmp"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
-
-[sub_resource type="StyleBoxFlat" id="4"]
-content_margin_left = 10.0
-content_margin_top = 15.0
-content_margin_right = 10.0
-content_margin_bottom = 15.0
 bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [sub_resource type="StyleBoxFlat" id="3"]
@@ -33,6 +27,13 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="4"]
+content_margin_left = 10.0
+content_margin_top = 15.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
 bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [sub_resource type="StyleBoxFlat" id="5"]
@@ -63,7 +64,10 @@ text = "Lobby Example"
 
 [node name="Message" type="RichTextLabel" parent="Frame/Main" index="1"]
 layout_mode = 2
-text = "This example will let you test various lobby functionality; as well as P2P packet functions."
+bbcode_enabled = true
+text = "This example will let you test various lobby functionality; as well as P2P packet functions. 
+[i]Note: Pressing 'View' opens the Steam Overlay. This might not be visible in the editor. Close with Escape.[/i]
+[i]Note: Joining Lobbies with more than 6 players will break the layout.[/i]"
 fit_content = true
 metadata/_edit_lock_ = true
 
@@ -92,7 +96,7 @@ theme_override_fonts/font = ExtResource("5")
 text = "Output Display"
 metadata/_edit_lock_ = true
 
-[node name="Lobby" type="Label" parent="Frame/Main/Displays/Outputs/Titles"]
+[node name="Lobby ID" type="Label" parent="Frame/Main/Displays/Outputs/Titles"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -145,9 +149,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6")
-theme_override_styles/normal = SubResource("4")
 theme_override_styles/focus = SubResource("3")
 theme_override_styles/read_only = SubResource("2")
+theme_override_styles/normal = SubResource("4")
 placeholder_text = "Enter a chat message..."
 editable = false
 caret_blink = true
@@ -218,11 +222,8 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3")
 metadata/_edit_lock_ = true
 
-[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="9"]
+[node name="Back2" parent="Frame/Sidebar/Options/List" index="9" instance=ExtResource("7_o2kmp")]
 layout_mode = 2
-theme = ExtResource("2")
-text = "Back To Main Menu"
-metadata/_edit_lock_ = true
 
 [node name="Lobbies" type="Panel" parent="."]
 visible = false
@@ -280,13 +281,13 @@ text = "Refresh"
 metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Frame/Main/Messaging/Send" to="." method="_on_Send_Chat_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/CreateLobby" to="." method="_on_Create_Lobby_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/OpenLobby List" to="." method="_on_Open_Lobby_List_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLobbyData" to="." method="_on_Get_Lobby_Data_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Leave" to="." method="_on_Leave_Lobby_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/SendPacket" to="." method="_on_Send_Packet_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
-[connection signal="pressed" from="Lobbies/Close Lobbies" to="." method="_on_Close_Lobbies_pressed"]
-[connection signal="pressed" from="Lobbies/Refresh" to="." method="_on_Refresh_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/CreateLobby" to="." method="_on_create_lobby_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/OpenLobby List" to="." method="_on_open_lobby_list_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetLobbyData" to="." method="_on_get_lobby_data_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Leave" to="." method="_on_leave_lobby_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/SendPacket" to="." method="_on_send_packet_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Back2" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Lobbies/Close Lobbies" to="." method="_on_close_lobbies_pressed"]
+[connection signal="pressed" from="Lobbies/Refresh" to="." method="_on_refresh_pressed"]
 
 [editable path="Frame"]

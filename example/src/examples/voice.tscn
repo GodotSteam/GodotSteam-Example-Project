@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://crjqw2v603ei2"]
+[gd_scene load_steps=13 format=3 uid="uid://crjqw2v603ei2"]
 
 [ext_resource type="Script" path="res://src/examples/voice.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dguu85jeyl3hb" path="res://data/images/microphone-solid.png" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cwwru1il0t6w3" path="res://data/images/volume-high-solid.png" id="6"]
 [ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="8"]
 [ext_resource type="Texture2D" uid="uid://q2eb16hdrk5w" path="res://data/images/optimal.png" id="9"]
+[ext_resource type="PackedScene" uid="uid://c5mucger62sy5" path="res://src/components/back_button.tscn" id="10_b85m0"]
 [ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="11"]
 
 [sub_resource type="AudioStreamGenerator" id="4"]
@@ -215,17 +216,13 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="6"]
+[node name="Back2" parent="Frame/Sidebar/Options/List" index="6" instance=ExtResource("10_b85m0")]
 layout_mode = 2
-theme = ExtResource("8")
-text = "Back To Main Menu"
-metadata/_edit_lock_ = true
 
-[connection signal="button_down" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_ToTalk_button_down"]
-[connection signal="button_up" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_ToTalk_button_up"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/ToggleVoice" to="." method="_on_ToggleVoice_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Loopback" to="." method="_on_Loopback_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Optimal" to="." method="_on_Optimal_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+[connection signal="button_down" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_to_talk_button_down"]
+[connection signal="button_up" from="Frame/Sidebar/Options/List/ToTalk" to="." method="_on_to_talk_button_up"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/ToggleVoice" to="." method="_on_toggle_voice_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Loopback" to="." method="_on_loopback_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Optimal" to="." method="_on_optimal_pressed"]
 
 [editable path="Frame"]

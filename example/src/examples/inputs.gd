@@ -2,8 +2,8 @@ extends Panel
 #################################################
 # INPUTS EXAMPLE
 #################################################
-# Steam's Inputs is somewhat unreliable sometimes
-# Godot's input is a lot more reliable so we will be mixing the two in here for now
+# Steam's Inputs can sometimes be unreliable
+# Godot's input is a lot more reliable, so we will be mixing the two in here for now
 
 
 # Note: 6-9 are currently unused (as of 4/25/2024)
@@ -30,28 +30,15 @@ var godot_controllers: Array
 @onready var output: RichTextLabel = $Frame/Main/Output
 
 
+
 func _ready() -> void:
 	# Godot Input Signals
-	_connect_godot_input_signal("joy_connection_changed", _on_joy_connection_changed)
+	Helper.connect_signal(Input.joy_connection_changed, _on_joy_connection_changed, 1)
 	
 	# Steam Signals
-	_connect_steam_signal("input_device_connected", _on_steam_input_device_connected)
-	_connect_steam_signal("input_device_disconnected", _on_steam_input_device_disconnected)
-	_connect_steam_signal("input_configuration_loaded", _on_steam_input_configuration_loaded)
-
-
-func _on_steam_input_device_connected(input_handle : int):
-	output.append_text("[Steam Input] Signal: Input device with handle " + str(input_handle) + " connected\n")
-
-
-func _on_steam_input_device_disconnected(input_handle : int):
-	output.append_text("[Steam Input] Signal: Input device with handle " + str(input_handle) + " disconnected\n")
-
-
-func _on_steam_input_configuration_loaded(app_id: int, device_handle: int, config_data: Dictionary):
-	output.append_text("[Steam Input] Signal: Input Configuration loaded: \n")
-	output.append_text("- App ID: %s \n" % str(app_id))
-	output.append_text("- Device Handle: %s \n" % str(device_handle))
+	Helper.connect_signal(Steam.input_device_connected, _on_steam_input_device_connected, 2)
+	Helper.connect_signal(Steam.input_device_disconnected, _on_steam_input_device_connected, 2)
+	Helper.connect_signal(Steam.input_configuration_loaded, _on_steam_input_configuration_loaded, 2)
 
 
 # Get a list of all connected controllers
@@ -76,10 +63,7 @@ func _on_get_name_pressed() -> void:
 
 		# Print it to the output
 		var OUTPUT : String = "- %s has InputType of %s (%s)" % [
-			str(steam_controllers[controller]), 
-			str(TYPE), 
-			STEAM_INPUT_TYPE_DICT[TYPE],
-			]
+				str(steam_controllers[controller]), str(TYPE), STEAM_INPUT_TYPE_DICT[TYPE]]
 		
 		output.append_text(OUTPUT + "\n")
 
@@ -105,12 +89,6 @@ func _on_init_pressed() -> void:
 
 	# Start the frame run
 	Steam.runFrame()
-
-
-# Called whenever a joypad has been connected or disconnected.
-func _on_joy_connection_changed(device_id: int, connected: bool) -> void:
-	if connected:
-		output.append_text(str(Input.get_joy_name(device_id))+"\n\n")
 
 
 # Create a haptic pulse. 
@@ -149,21 +127,35 @@ func _on_vibrate_pressed() -> void:
 		Steam.triggerVibration(steam_controllers[controller], 5000, 5000)
 
 
+
+
 #################################################
-# HELPER FUNCTIONS
+# CALLBACKS
 #################################################
-func _on_back_pressed() -> void:
-	Loading.load_scene.emit("main")
+
+# Called whenever a joypad has been connected or disconnected.
+func _on_joy_connection_changed(device_id: int, connected: bool) -> void:
+	if connected:
+		output.append_text(str(Input.get_joy_name(device_id))+"\n\n")
 
 
-func _connect_godot_input_signal(_signal: String, _function: Callable) -> void:
-	var signal_connect : int = Input.connect(_signal, _function)
-	if signal_connect > OK:
-		printerr("[GODOT INPUT] Connecting "+str(_signal)+" to "+str(_function)+" failed: "+str(signal_connect))
+# Called when a new controller has been connected, will fire once per controller 
+# if multiple new controllers connect in the same frame.
+func _on_steam_input_device_connected(input_handle : int):
+	output.append_text("[Steam Input] Signal: Input device with handle " + str(input_handle) + " connected\n")
 
 
-# Connect a Steam signal and show the success code
-func _connect_steam_signal(_signal: String, _function: Callable) -> void:
-	var signal_connect = Steam.connect(_signal, _function)
-	if signal_connect > OK:
-		printerr("[STEAM] Connecting "+str(_signal)+" to "+str(_function)+" failed: "+str(signal_connect))
+# Called when a new controller has been connected, will fire once per controller 
+# if multiple new controllers connect in the same frame.
+func _on_steam_input_device_disconnected(input_handle : int):
+	output.append_text("[Steam Input] Signal: Input device with handle " + str(input_handle) + " disconnected\n")
+
+
+# Called when a controller configuration has been loaded, will fire once per 
+# controller per focus change for Steam Input enabled controllers.
+func _on_steam_input_configuration_loaded(app_id: int, device_handle: int, config_data: Dictionary):
+	output.append_text("[Steam Input] Signal: Input Configuration loaded: \n")
+	output.append_text("- App ID: %s \n" % str(app_id))
+	output.append_text("- Device Handle: %s \n" % str(device_handle))
+
+# TODO: Steam.input_gamepad_slot_change callback example

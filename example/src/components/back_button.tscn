@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5mucger62sy5"]
+
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="1_h1yhv"]
+[ext_resource type="Script" path="res://src/components/back_button.gd" id="2_niuah"]
+
+[node name="Back" type="Button"]
+auto_translate_mode = 1
+theme = ExtResource("1_h1yhv")
+text = "Back To Main Menu"
+script = ExtResource("2_niuah")
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="." to="." method="_on_back_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dluh0br2vwqx5"]
+[gd_scene load_steps=9 format=3 uid="uid://dluh0br2vwqx5"]
 
 [ext_resource type="Script" path="res://src/examples/inputs.gd" id="1"]
 [ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="5"]
 [ext_resource type="FontFile" path="res://data/fonts/output-text.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://c5mucger62sy5" path="res://src/components/back_button.tscn" id="7_eu2mh"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -118,12 +119,8 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3")
 metadata/_edit_lock_ = true
 
-[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="9"]
+[node name="Back" parent="Frame/Sidebar/Options/List" index="9" instance=ExtResource("7_eu2mh")]
 layout_mode = 2
-mouse_default_cursor_shape = 2
-theme = ExtResource("2")
-text = "Back To Main Menu"
-metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Frame/Sidebar/Options/List/Init" to="." method="_on_init_pressed"]
 [connection signal="pressed" from="Frame/Sidebar/Options/List/Shutdown" to="." method="_on_shutdown_pressed"]
@@ -132,6 +129,5 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="Frame/Sidebar/Options/List/Haptic" to="." method="_on_haptic_pressed"]
 [connection signal="pressed" from="Frame/Sidebar/Options/List/HapticRepeated" to="." method="_on_haptic_repeated_pressed"]
 [connection signal="pressed" from="Frame/Sidebar/Options/List/GetName" to="." method="_on_get_name_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_back_pressed"]
 
 [editable path="Frame"]

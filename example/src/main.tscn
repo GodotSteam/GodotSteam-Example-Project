@@ -116,10 +116,10 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("7")
+theme_override_colors/font_disabled_color = Color(0.258824, 0.258824, 0.258824, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.258824, 0.258824, 0.258824, 1)
 theme_override_fonts/font = ExtResource("5")
 text = "Avatars"
 metadata/_edit_lock_ = true
@@ -177,11 +177,11 @@ theme_override_fonts/font = ExtResource("5")
 text = "Exit"
 metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Authentication" to="." method="_start_Example" binds= ["authentication"]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Avatars" to="." method="_start_Example" binds= ["avatars"]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Inputs" to="." method="_start_Example" binds= ["inputs"]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Leaderboards" to="." method="_start_Example" binds= ["leaderboards"]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Lobby" to="." method="_start_Example" binds= ["lobby"]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/StatsAchievements" to="." method="_start_Example" binds= ["stats-achieves"]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Voice" to="." method="_start_Example" binds= ["voice"]]
-[connection signal="pressed" from="Frame/Sidebar/Examples/List/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Authentication" to="." method="_button_select_example_pressed" binds= ["authentication"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Avatars" to="." method="_button_select_example_pressed" binds= ["avatars"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Inputs" to="." method="_button_select_example_pressed" binds= ["inputs"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Leaderboards" to="." method="_button_select_example_pressed" binds= ["leaderboards"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Lobby" to="." method="_button_select_example_pressed" binds= ["lobby"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/StatsAchievements" to="." method="_button_select_example_pressed" binds= ["stats-achieves"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Voice" to="." method="_button_select_example_pressed" binds= ["voice"]]
+[connection signal="pressed" from="Frame/Sidebar/Examples/List/Exit" to="." method="_on_exit_pressed"]

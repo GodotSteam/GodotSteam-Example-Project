@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmfboq8t0na2v"]
+[gd_scene load_steps=14 format=3 uid="uid://dmfboq8t0na2v"]
 
 [ext_resource type="Script" path="res://src/examples/avatars.gd" id="1"]
 [ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
 [ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="3"]
 [ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="5"]
 [ext_resource type="Texture2D" uid="uid://75y1l3r1ekie" path="res://data/images/default-avatar-medium.png" id="6"]
-[ext_resource type="Texture2D" uid="uid://bemxdibyjmpmd" path="res://data/images/default-avatar-large.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://bt451os7qbnd1" path="res://data/images/default-avatar-large_128.png" id="6_8lelg"]
 [ext_resource type="Texture2D" uid="uid://cb6dv4yjg40g0" path="res://data/images/default-avatar-small.png" id="8"]
 [ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://c5mucger62sy5" path="res://src/components/back_button.tscn" id="9_c00sr"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
@@ -36,7 +37,7 @@ text = "Player Avatar Example"
 
 [node name="Message" type="RichTextLabel" parent="Frame/Main" index="1"]
 layout_mode = 2
-text = "This very brief example shows how to obtain a player's Steam profile avatar.  There are three different sizes and, in this example, they will be applied to Sprite2D nodes. Note that sometimes the API will send back a large avatar bigger than 128 pixels."
+text = "This very brief example shows how to obtain a player's Steam profile avatar.  There are three different sizes and, in this example, they will be applied to Sprite2D nodes. Note that sometimes the API will send back a large avatar bigger than 128 pixels, usually 184 pixels. In this example the large avatar is  resized if its larger than 128 pixels."
 fit_content = true
 metadata/_edit_lock_ = true
 
@@ -63,10 +64,13 @@ theme_override_fonts/font = ExtResource("5")
 text = "Small Avatar - 32 x 32 pixels"
 metadata/_edit_lock_ = true
 
-[node name="Avatar" type="Sprite2D" parent="Frame/Main/Images/Small"]
-position = Vector2(10, 40)
+[node name="Avatar Small" type="TextureRect" parent="Frame/Main/Images/Small"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 10.0
+offset_bottom = 40.0
 texture = ExtResource("8")
-centered = false
 metadata/_edit_lock_ = true
 
 [node name="Medium" type="Panel" parent="Frame/Main/Images"]
@@ -85,21 +89,24 @@ theme_override_fonts/font = ExtResource("5")
 text = "Medium Avatar - 64 x 64 pixels"
 metadata/_edit_lock_ = true
 
-[node name="Avatar" type="Sprite2D" parent="Frame/Main/Images/Medium"]
-position = Vector2(10, 40)
+[node name="Avatar Medium" type="TextureRect" parent="Frame/Main/Images/Medium"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 10.0
+offset_bottom = 40.0
 texture = ExtResource("6")
-centered = false
 metadata/_edit_lock_ = true
 
 [node name="Large" type="Panel" parent="Frame/Main/Images"]
-custom_minimum_size = Vector2(425, 235)
+custom_minimum_size = Vector2(425, 185)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("4")
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="Frame/Main/Images/Large"]
+[node name="Label Large" type="Label" parent="Frame/Main/Images/Large"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -109,10 +116,15 @@ theme_override_fonts/font = ExtResource("5")
 text = "Large Avatar - 128 x 128 pixels"
 metadata/_edit_lock_ = true
 
-[node name="Avatar" type="Sprite2D" parent="Frame/Main/Images/Large"]
-position = Vector2(10, 40)
-texture = ExtResource("7")
-centered = false
+[node name="Avatar Large" type="TextureRect" parent="Frame/Main/Images/Large"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 138.0
+offset_bottom = 168.0
+texture = ExtResource("6_8lelg")
+expand_mode = 1
+stretch_mode = 4
 metadata/_edit_lock_ = true
 
 [node name="List" parent="Frame/Sidebar/Options" index="0"]
@@ -128,21 +140,21 @@ text = "Load Avatars"
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("2")
-text = "Show Small Avatar"
+text = "Load Small Avatar"
 metadata/_edit_lock_ = true
 
 [node name="Medium" type="Button" parent="Frame/Sidebar/Options/List" index="2"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("2")
-text = "Show Medium Avatar"
+text = "Load Medium Avatar"
 metadata/_edit_lock_ = true
 
 [node name="Large" type="Button" parent="Frame/Sidebar/Options/List" index="3"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("2")
-text = "Show Large Avatar"
+text = "Load Large Avatar"
 metadata/_edit_lock_ = true
 
 [node name="Spacer" type="Label" parent="Frame/Sidebar/Options/List" index="4"]
@@ -150,16 +162,11 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3")
 metadata/_edit_lock_ = true
 
-[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="5"]
+[node name="Back2" parent="Frame/Sidebar/Options/List" index="5" instance=ExtResource("9_c00sr")]
 layout_mode = 2
-mouse_default_cursor_shape = 2
-theme = ExtResource("2")
-text = "Back To Main Menu"
-metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Small" to="." method="_on_Small_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Medium" to="." method="_on_Medium_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Large" to="." method="_on_Large_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Small" to="." method="_on_small_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/Large" to="." method="_on_large_pressed"]
 
 [editable path="Frame"]
