@@ -86,7 +86,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Background/Message:visible")
+tracks/3/path = NodePath("Background/VBoxContainer/Message:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -154,7 +154,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Background/Message:visible")
+tracks/2/path = NodePath("Background/VBoxContainer/Message:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -258,7 +258,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Background/Message:visible")
+tracks/3/path = NodePath("Background/VBoxContainer/Message:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -333,7 +333,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Background/Message:visible")
+tracks/3/path = NodePath("Background/VBoxContainer/Message:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -389,31 +389,31 @@ offset_bottom = 720.0
 color = Color(0.145098, 0.145098, 0.164706, 1)
 metadata/_edit_lock_ = true
 
-[node name="Logo" type="TextureRect" parent="Background"]
-layout_mode = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -132.0
-offset_top = -132.0
-offset_right = 124.0
-offset_bottom = 124.0
-pivot_offset = Vector2(128, 128)
+offset_left = -272.0
+offset_top = -157.0
+offset_right = 272.0
+offset_bottom = 157.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Logo" type="TextureRect" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 texture = ExtResource("2")
+stretch_mode = 4
 metadata/_edit_lock_ = true
 
-[node name="Message" type="Label" parent="Background"]
+[node name="Message" type="Label" parent="Background/VBoxContainer"]
 visible = false
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -640.0
-offset_top = -145.0
-offset_right = 640.0
-offset_bottom = -95.0
+layout_mode = 2
 theme_override_fonts/font = SubResource("1")
 theme_override_font_sizes/font_size = 35
 text = "Now Loading..."
@@ -453,6 +453,6 @@ libraries = {
 "": SubResource("AnimationLibrary_p12k3")
 }
 
-[connection signal="pressed" from="Background/Options/Quit" to="." method="_on_Quit_pressed"]
-[connection signal="pressed" from="Background/Options/Resume" to="." method="_on_Resume_pressed"]
-[connection signal="animation_finished" from="Animator" to="." method="_on_Animator_Finished"]
+[connection signal="pressed" from="Background/Options/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Background/Options/Resume" to="." method="_on_resume_pressed"]
+[connection signal="animation_finished" from="Animator" to="." method="_on_animator_finished"]

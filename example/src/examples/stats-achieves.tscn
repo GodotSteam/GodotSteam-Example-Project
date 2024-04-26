@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bno2vpjbf6g0b"]
+[gd_scene load_steps=15 format=3 uid="uid://bno2vpjbf6g0b"]
 
 [ext_resource type="Script" path="res://src/examples/stats-achieves.gd" id="1"]
 [ext_resource type="FontFile" path="res://data/fonts/list-titles.tres" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" path="res://data/fonts/output-text.tres" id="7"]
 [ext_resource type="Texture2D" uid="uid://75y1l3r1ekie" path="res://data/images/default-avatar-medium.png" id="8"]
 [ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://c5mucger62sy5" path="res://src/components/back_button.tscn" id="9_2cg1a"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
@@ -392,19 +393,14 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2")
 metadata/_edit_lock_ = true
 
-[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="10"]
+[node name="Back" parent="Frame/Sidebar/Options/List" index="10" instance=ExtResource("9_2cg1a")]
 layout_mode = 2
-mouse_default_cursor_shape = 2
-theme = ExtResource("3")
-text = "Back To Main Menu"
-metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="Frame/Sidebar/Options/List/requestCurrentStats" to="." method="_on_requestCurrentStats_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/requestUserStats" to="." method="_on_requestUserStats_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/setStats" to="." method="_on_setStats_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/resetAllStats" to="." method="_on_resetAllStats_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/setAchievement" to="." method="_on_setAchievement_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/getAchievementIcon" to="." method="_on_getAchievementIcon_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/requestCurrentStats" to="." method="_on_request_current_stats_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/requestUserStats" to="." method="_on_request_user_stats_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/setStats" to="." method="_on_set_stats_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/resetAllStats" to="." method="_on_reset_all_stats_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/setAchievement" to="." method="_on_set_achievement_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/getAchievementIcon" to="." method="_on_get_achievement_icon_pressed"]
 
 [editable path="Frame"]

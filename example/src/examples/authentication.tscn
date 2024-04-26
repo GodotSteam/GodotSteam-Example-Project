@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bio5qv4cmuvud"]
+[gd_scene load_steps=7 format=3 uid="uid://bio5qv4cmuvud"]
 
 [ext_resource type="Script" path="res://src/examples/authentication.gd" id="1"]
 [ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
 [ext_resource type="FontFile" path="res://data/fonts/sub-titles.tres" id="4"]
+[ext_resource type="PackedScene" uid="uid://c5mucger62sy5" path="res://src/components/back_button.tscn" id="5_i0rlo"]
 [ext_resource type="PackedScene" uid="uid://da10if42gew8v" path="res://src/components/main-frame.tscn" id="6"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
@@ -102,16 +103,12 @@ custom_minimum_size = Vector2(0, 19)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="Back" type="Button" parent="Frame/Sidebar/Options/List" index="6"]
+[node name="Back" parent="Frame/Sidebar/Options/List" index="6" instance=ExtResource("5_i0rlo")]
 layout_mode = 2
-theme = ExtResource("2")
-text = "Back To Main Menu"
-metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="Frame/Sidebar/Options/List/GetAuthTicket" to="." method="_on_GetAuthTicket_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/BeginAuthSession" to="." method="_on_BeginAuthSession_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/CancelAuthTicket" to="." method="_on_CancelAuthTicket_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/EndAuthSession" to="." method="_on_EndAuthSession_pressed"]
-[connection signal="pressed" from="Frame/Sidebar/Options/List/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/GetAuthTicket" to="." method="_on_get_auth_ticket_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/BeginAuthSession" to="." method="_on_begin_auth_session_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/CancelAuthTicket" to="." method="_on_cancel_auth_ticket_pressed"]
+[connection signal="pressed" from="Frame/Sidebar/Options/List/EndAuthSession" to="." method="_on_end_auth_session_pressed"]
 
 [editable path="Frame"]

@@ -1,87 +1,58 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bsk01dhjbup0j"]
 
-[ext_resource path="res://src/examples/lobby-member.gd" type="Script" id=1]
-[ext_resource path="res://data/themes/button-theme.tres" type="Theme" id=2]
-[ext_resource path="res://data/images/default-avatar-medium.png" type="Texture2D" id=3]
-[ext_resource path="res://data/fonts/descriptions.tres" type="FontFile" id=4]
+[ext_resource type="Script" path="res://src/examples/lobby-member.gd" id="1"]
+[ext_resource type="Theme" uid="uid://68ace3qam0yu" path="res://data/themes/button-theme.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://75y1l3r1ekie" path="res://data/images/default-avatar-medium.png" id="3"]
+[ext_resource type="FontFile" uid="uid://bpqf2n7qrpvq4" path="res://data/fonts/descriptions.tres" id="4"]
 
-[node name="LobbyMember" type="Control"]
-custom_minimum_size = Vector2( 256, 64 )
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+[node name="LobbyMember" type="Control" node_paths=PackedStringArray("username_label", "avatar_rect", "button_kick")]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1")
+username_label = NodePath("Member/Stuff/Username")
+avatar_rect = NodePath("Member/Avatar")
+button_kick = NodePath("Member/Stuff/Controls/Kick")
 
 [node name="Member" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-custom_minimum_size = Vector2( 256, 0 )
 theme_override_constants/separation = 10
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
 
 [node name="Avatar" type="TextureRect" parent="Member"]
-offset_right = 64.0
-offset_bottom = 64.0
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
+layout_mode = 2
+texture = ExtResource("3")
 
 [node name="Stuff" type="VBoxContainer" parent="Member"]
-offset_left = 74.0
-offset_right = 256.0
-offset_bottom = 64.0
-custom_minimum_size = Vector2( 182, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
+custom_minimum_size = Vector2(182, 0)
+layout_mode = 2
 
 [node name="Username" type="Label" parent="Member/Stuff"]
-offset_right = 182.0
-offset_bottom = 32.0
-custom_minimum_size = Vector2( 0, 32 )
-theme_override_fonts/font = ExtResource( 4 )
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4")
 text = "Player Username"
-valign = 1
+vertical_alignment = 1
 clip_text = true
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Controls" type="HBoxContainer" parent="Member/Stuff"]
-offset_top = 36.0
-offset_right = 182.0
-offset_bottom = 64.0
+layout_mode = 2
 theme_override_constants/separation = 10
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Kick" type="Button" parent="Member/Stuff/Controls"]
-offset_right = 60.0
-offset_bottom = 28.0
-custom_minimum_size = Vector2( 60, 0 )
-theme = ExtResource( 2 )
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme = ExtResource("2")
 disabled = true
 text = "Kick"
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="View" type="Button" parent="Member/Stuff/Controls"]
-offset_left = 70.0
-offset_right = 130.0
-offset_bottom = 28.0
-custom_minimum_size = Vector2( 60, 0 )
-theme = ExtResource( 2 )
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme = ExtResource("2")
 text = "View"
-__meta__ = {
-"_edit_lock_": true
-}
 
-[connection signal="pressed" from="Member/Stuff/Controls/Kick" to="." method="_on_Kick_pressed"]
-[connection signal="pressed" from="Member/Stuff/Controls/View" to="." method="_on_View_pressed"]
+[connection signal="pressed" from="Member/Stuff/Controls/Kick" to="." method="_on_kick_pressed"]
+[connection signal="pressed" from="Member/Stuff/Controls/View" to="." method="_on_view_pressed"]
